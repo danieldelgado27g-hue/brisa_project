@@ -653,9 +653,9 @@ var Profile = {
   // Obtener etiqueta de presupuesto
   getBudgetLabel: function(budget) {
     var labels = {
-      'low': 'Económico (<S/.15)',
-      'medium': 'Medio (<S/.25)',
-      'high': 'Premium (<S/.50)',
+      'low': 'Económico (menos de S/.15)',
+      'medium': 'Medio (menos de S/.25)',
+      'high': 'Premium (menos de S/.50)',
       'any': 'Sin límite'
     };
     return labels[budget] || 'Cualquiera';

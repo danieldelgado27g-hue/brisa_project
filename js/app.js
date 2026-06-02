@@ -259,6 +259,26 @@ var App = {
       '<h2 style="margin-bottom:1rem;">🛒 Carrito</h2>' +
       itemsHtml +
       '<div class="cart-total"><span>Total</span><span>S/.' + total.toFixed(2) + '</span></div>' +
+      '<div class="cart-section">' +
+      '<h3>Opción de entrega</h3>' +
+      '<label class="cart-radio"><input type="radio" name="deliveryOption" value="delivery" checked onchange="App.toggleDeliveryAddress(true)"> 🚚 Delivery a domicilio</label>' +
+      '<label class="cart-radio"><input type="radio" name="deliveryOption" value="pickup" onchange="App.toggleDeliveryAddress(false)"> 🏪 Recojo en tienda</label>' +
+      '</div>' +
+      '<div id="deliveryAddressSection" class="cart-section">' +
+      '<h3>Dirección de entrega</h3>' +
+      '<input type="text" id="cartAddress" class="cart-input" placeholder="Dirección (ej. Av. Larco 123, Miraflores)">' +
+      '<input type="text" id="cartCity" class="cart-input" placeholder="Ciudad / Distrito">' +
+      '<input type="text" id="cartPhone" class="cart-input" placeholder="Teléfono de contacto">' +
+      '<textarea id="cartNotes" class="cart-input cart-textarea" placeholder="Notas adicionales (opcional)"></textarea>' +
+      '</div>' +
+      '<div class="cart-section">' +
+      '<h3>Medio de pago</h3>' +
+      '<label class="cart-radio"><input type="radio" name="paymentMethod" value="card" checked> 💳 Tarjeta de crédito/débito</label>' +
+      '<label class="cart-radio"><input type="radio" name="paymentMethod" value="cash"> 💵 Efectivo</label>' +
+      '<label class="cart-radio"><input type="radio" name="paymentMethod" value="yape"> 📱 Yape</label>' +
+      '<label class="cart-radio"><input type="radio" name="paymentMethod" value="plin"> 📱 Plin</label>' +
+      '<label class="cart-radio"><input type="radio" name="paymentMethod" value="transfer"> 🏦 Transferencia bancaria</label>' +
+      '</div>' +
       '<button class="btn btn-primary btn-full" onclick="App.checkout()">Finalizar compra</button>' +
       '</div>';
   },
@@ -269,9 +289,33 @@ var App = {
   },
 
   checkout: function() {
+    var deliveryOption = document.querySelector('input[name="deliveryOption"]:checked');
+    var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+    var deliveryType = deliveryOption ? deliveryOption.value : 'delivery';
+    var paymentType = paymentMethod ? paymentMethod.value : 'card';
+
+    var paymentNames = {
+      card: 'Tarjeta de crédito/débito',
+      cash: 'Efectivo',
+      yape: 'Yape',
+      plin: 'Plin',
+      transfer: 'Transferencia bancaria'
+    };
+
+    var deliveryMessage = deliveryType === 'delivery'
+      ? 'Tu pedido será entregado en la dirección indicada.'
+      : 'Puedes recoger tu pedido en nuestra tienda.';
+
     Storage.clearCart();
-    Utils.showModal({ type: 'success', title: '¡Compra realizada!', message: 'Gracias por tu compra. Recibirás un correo con los detalles.' });
+    Utils.showModal({ type: 'success', title: '¡Compra realizada!', message: 'Gracias por tu compra. Pagarás con ' + (paymentNames[paymentType] || paymentType) + '. ' + deliveryMessage });
     App.navigate('home');
+  },
+
+  toggleDeliveryAddress: function(show) {
+    var section = document.getElementById('deliveryAddressSection');
+    if (section) {
+      section.style.display = show ? 'block' : 'none';
+    }
   },
 
   renderFavorites: function(app) {

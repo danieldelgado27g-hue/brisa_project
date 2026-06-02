@@ -111,7 +111,7 @@ var Profile = {
       <!-- SECCIÓN DE CONFIGURACIÓN DE RUTINA -->
       <div class="config-container">
         <div class="section-header">
-          <h2>⚙️ Configuración de Tu Rutina</h2>
+          <h2>⚙️ Configuración de Tu Rutina2</h2>
           <p class="section-description">Personaliza los filtros para generar tu rutina perfecta</p>
         </div>
 

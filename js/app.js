@@ -66,6 +66,8 @@ var App = {
     else if (route === 'cart') { this.renderCart(app); }
     else if (route === 'favorites') { this.renderFavorites(app); }
     else if (route === 'contacto') { this.renderContacto(app); }
+    else if (route === 'privacidad') { this.renderPrivacidad(app); }
+    else if (route === 'terminos') { this.renderTerminos(app); }
     else { this.renderHome(app); }
 
     window.scrollTo(0, 0);
@@ -398,6 +400,60 @@ var App = {
       '<label>Mensaje</label><textarea id="contactMessage" placeholder="Escribe tu mensaje..."></textarea>' +
       '<button class="btn btn-primary btn-full" onclick="App.sendContact()">Enviar mensaje</button>' +
       '</div></div>';
+  },
+
+  renderPrivacidad: function(app) {
+    app.innerHTML = '<div class="container legal-page">' +
+      '<h2>🔒 Política de Privacidad</h2>' +
+      '<p class="legal-update">Última actualización: junio 2026</p>' +
+      '<div class="legal-content">' +
+      '<h3>1. Datos que recopilamos</h3>' +
+      '<p>En DermaMatch recopilamos información que nos proporcionas directamente al registrarte, como nombre, correo electrónico, y los datos de diagnóstico de tu piel (tipo de piel, alergias, preocupaciones cutáneas). También recopilamos información automáticamente, como datos de navegación y uso del sitio.</p>' +
+      '<h3>2. Uso de tu información</h3>' +
+      '<p>Utilizamos tus datos para: personalizar tu experiencia y recomendaciones de productos, procesar tus pedidos y pagos, enviarte comunicaciones relacionadas con tu cuenta y pedidos, mejorar nuestro sitio y servicios, y cumplir con obligaciones legales.</p>' +
+      '<h3>3. Protección de datos</h3>' +
+      '<p>Implementamos medidas de seguridad técnicas y organizativas para proteger tu información personal contra acceso no autorizado, pérdida o divulgación. Tus datos de pago son procesados de forma segura a través de pasarelas de pago certificadas.</p>' +
+      '<h3>4. Compartir información</h3>' +
+      '<p>No vendemos tu información personal a terceros. Podemos compartir datos con proveedores de servicios de confianza (procesamiento de pagos, envíos) que actúan bajo nuestra instrucción y cumplen con estrictas políticas de privacidad.</p>' +
+      '<h3>5. Tus derechos</h3>' +
+      '<p>Tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos personales. Puedes ejercer estos derechos contactándonos a través de nuestro formulario de contacto. También puedes solicitar la eliminación de tu cuenta y datos asociados.</p>' +
+      '<h3>6. Cookies</h3>' +
+      '<p>Utilizamos cookies esenciales para el funcionamiento del sitio y cookies analíticas para mejorar tu experiencia. Puedes configurar tu navegador para rechazar cookies, aunque algunas funciones podrían verse afectadas.</p>' +
+      '<h3>7. Contacto</h3>' +
+      '<p>Si tienes preguntas sobre esta política de privacidad, contáctanos a través de la sección de contacto o escribiendo a privacidad@dermamatch.pe</p>' +
+      '</div>' +
+      '<button class="btn btn-secondary" onclick="App.navigate(\'home\')">← Volver al inicio</button>' +
+      '</div>';
+  },
+
+  renderTerminos: function(app) {
+    app.innerHTML = '<div class="container legal-page">' +
+      '<h2>📋 Términos y Condiciones</h2>' +
+      '<p class="legal-update">Última actualización: junio 2026</p>' +
+      '<div class="legal-content">' +
+      '<h3>1. Aceptación de los términos</h3>' +
+      '<p>Al acceder y usar este sitio web, aceptas cumplir con estos términos y condiciones. Si no estás de acuerdo con alguna parte, no debes usar nuestros servicios.</p>' +
+      '<h3>2. Descripción del servicio</h3>' +
+      '<p>DermaMatch es una plataforma de diagnóstico y recomendación de cuidado de la piel. Nuestras recomendaciones se basan en la información proporcionada por el usuario y no sustituyen el consejo médico profesional. Siempre recomendamos consultar con un dermatólogo certificado.</p>' +
+      '<h3>3. Registro de cuenta</h3>' +
+      '<p>Para acceder a ciertos servicios, debes crear una cuenta. Eres responsable de mantener la confidencialidad de tus credenciales y de todas las actividades realizadas con tu cuenta. Debes proporcionar información precisa y actualizada.</p>' +
+      '<h3>4. Compras y pagos</h3>' +
+      '<p>Los precios de los productos están expresados en soles peruanos (S/) e incluyen IGV. Nos reservamos el derecho de modificar precios en cualquier momento. El pago se procesa al confirmar la compra a través de los métodos de pago disponibles (tarjeta, efectivo, Yape, Plin, transferencia bancaria).</p>' +
+      '<h3>5. Envíos y entregas</h3>' +
+      '<p>Ofrecemos opciones de delivery a domicilio y recojo en tienda. Los plazos de entrega varían según la ubicación. No nos responsabilizamos por retrasos causados por terceros o fuerza mayor.</p>' +
+      '<h3>6. Devoluciones y reembolsos</h3>' +
+      '<p>Aceptamos devoluciones dentro de los 7 días calendario posteriores a la recepción del producto, siempre que esté sin usar y en su empaque original. Los gastos de devolución corren por cuenta del cliente, salvo productos defectuosos.</p>' +
+      '<h3>7. Propiedad intelectual</h3>' +
+      '<p>Todo el contenido del sitio (textos, imágenes, logotipos, diseño) es propiedad de DermaMatch o tiene licencia de uso. Queda prohibida la reproducción total o parcial sin autorización expresa.</p>' +
+      '<h3>8. Limitación de responsabilidad</h3>' +
+      '<p>DermaMatch no se responsabiliza por daños indirectos o derivados del uso del sitio. Las recomendaciones de productos son informativas y no garantizan resultados específicos para cada tipo de piel.</p>' +
+      '<h3>9. Modificaciones</h3>' +
+      '<p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán notificados en el sitio y entrarán en vigencia inmediatamente después de su publicación.</p>' +
+      '<h3>10. Contacto</h3>' +
+      '<p>Para consultas sobre estos términos, contáctanos a través de la sección de contacto o al correo legal@dermamatch.pe</p>' +
+      '</div>' +
+      '<button class="btn btn-secondary" onclick="App.navigate(\'home\')">← Volver al inicio</button>' +
+      '</div>';
   },
 
   sendContact: function() {

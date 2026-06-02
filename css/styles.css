@@ -133,6 +133,26 @@ a:hover { color: var(--wine-dark); }
 
 .sidebar-user:hover { background: rgba(255,255,255,0.5); color: var(--text-primary); }
 
+.sidebar-links { display: flex; gap: 0.25rem; margin-top: 0.5rem; padding: 0 0.25rem; }
+
+.sidebar-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.sidebar-link:hover { background: rgba(255,255,255,0.5); color: var(--wine); }
+
 /* Sidebar overlay for mobile */
 #sidebarOverlay {
   display: none;
@@ -1189,6 +1209,21 @@ a:hover { color: var(--wine-dark); }
 .cart-input:focus { outline: none; border-color: var(--wine); }
 
 .cart-textarea { resize: vertical; min-height: 60px; }
+
+/* ===== LEGAL PAGES ===== */
+.legal-page { padding: 2rem 0; }
+
+.legal-page h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+.legal-update { color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 1.5rem; }
+
+.legal-content { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+
+.legal-content h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: var(--wine); }
+
+.legal-content h3:first-child { margin-top: 0; }
+
+.legal-content p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.5rem; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {

@@ -1001,6 +1001,144 @@ a:hover { color: var(--wine-dark); }
 .derm-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
 .derm-actions .btn { flex: 1; }
 
+/* ===== ROUTINE CONFIG ===== */
+.config-container {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.section-header { margin-bottom: 1.25rem; }
+
+.section-header h2 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+
+.section-description { color: var(--text-secondary); font-size: 0.875rem; }
+
+.routine-config { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.config-section { background: var(--peach-light); border-radius: var(--radius-md); padding: 1.25rem; }
+
+.config-label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--text-primary); }
+
+.config-hint { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+
+.config-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  background: var(--white);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.config-select:focus { outline: none; border-color: var(--wine); }
+
+.budget-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem; }
+
+.budget-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 0.5rem;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-sans);
+}
+
+.budget-btn:hover { border-color: var(--wine-light); }
+
+.budget-btn.active { border-color: var(--wine); background: var(--peach-light); }
+
+.budget-icon { font-size: 1.25rem; }
+
+.budget-name { font-weight: 700; font-size: 0.85rem; color: var(--text-primary); }
+
+.budget-price { font-size: 0.75rem; color: var(--text-secondary); }
+
+.brand-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.brand-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.brand-checkbox:hover { border-color: var(--wine-light); }
+
+.brand-checkbox input[type="checkbox"] { accent-color: var(--wine); cursor: pointer; }
+
+.allergy-summary { padding: 0.5rem 0; }
+
+.no-allergies { color: var(--success); font-weight: 700; font-size: 0.9rem; }
+
+.allergy-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.allergy-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  background: #FEE2E2;
+  color: #991B1B;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.additional-allergies-container { margin-bottom: 0.75rem; }
+
+.allergy-chip-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.allergy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.allergy-chip:hover { border-color: var(--wine-light); }
+
+.allergy-chip input[type="checkbox"] { accent-color: var(--wine); cursor: pointer; }
+
+.chip-icon { font-size: 0.9rem; }
+
+.chip-text { font-weight: 700; }
+
+.selected-allergies-summary { margin-top: 0.5rem; }
+
 /* ===== CART DELIVERY & PAYMENT ===== */
 .cart-section {
   background: var(--peach-light);

@@ -52,10 +52,16 @@ var Products = {
     return result;
   },
   getBySkinType: function(skinType) {
-    var typeMap = { 'Normal': 'normal', 'Seca': 'dry', 'Grasa': 'oily', 'Mixta': 'mixed', 'Sensible': 'sensitive', 'Acné': 'acne', 'Atópica': 'atopic' };
-    var skinTypes = skinType.split(' ').map(function(t) { return typeMap[t] || t.toLowerCase(); });
+    var types = [];
+    if (skinType.indexOf("Normal") > -1) types.push("normal");
+    if (skinType.indexOf("Seca") > -1) types.push("dry");
+    if (skinType.indexOf("Grasa") > -1) types.push("oily");
+    if (skinType.indexOf("Mixta") > -1) types.push("mixed");
+    if (skinType.indexOf("Sensible") > -1) types.push("sensitive");
+    if (skinType.indexOf("Acné") > -1) types.push("acne");
+    if (skinType.indexOf("Atópica") > -1) types.push("atopic");
     return productsData.filter(function(p) { 
-      for (var i = 0; i < p.type.length; i++) { if (skinTypes.indexOf(p.type[i]) !== -1) return true; }
+      for (var i = 0; i < p.type.length; i++) { if (types.indexOf(p.type[i]) !== -1) return true; }
       return false;
     });
   },

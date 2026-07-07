@@ -286,6 +286,7 @@ var App = {
     var productsHtml = '';
     try {
       productsHtml = recommended.slice(0, 6).map(function(p) { return Products.renderCard(p); }).join('');
+      if (!productsHtml) productsHtml = '<p style="color:var(--text-secondary);padding:1rem;">No se encontraron productos para tu tipo de piel. Explora todas las categorías usando los filtros.</p>';
     } catch(e) {
       productsHtml = '<p style="color:var(--wine);padding:1rem;">Error al cargar productos. Intenta de nuevo.</p>';
     }

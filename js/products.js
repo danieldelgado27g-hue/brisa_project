@@ -60,6 +60,7 @@ var Products = {
     if (skinType.indexOf("Sensible") > -1) types.push("sensitive");
     if (skinType.indexOf("Acné") > -1) types.push("acne");
     if (skinType.indexOf("Atópica") > -1) types.push("atopic");
+    if (skinType.indexOf("Rosácea") > -1) types.push("sensitive");
     return productsData.filter(function(p) { 
       for (var i = 0; i < p.type.length; i++) { if (types.indexOf(p.type[i]) !== -1) return true; }
       return false;

@@ -55,7 +55,7 @@ var skinTypeMapping = {
     if (q6 === 'aging_visible') { type += " Madura"; concerns.push("signos de edad"); }
     if (q7 === 'hyperpig_high') { concerns.push("hiperpigmentación"); if (type.indexOf("con") === -1) type += " con Manchas"; }
     if (q1 === 'dry' && q2 === 'sensitive_high') { concerns.push("posible dermatitis atópica"); if (type.indexOf("Atópica") === -1) type = type.replace("Seca", "Seca/Atópica"); }
-    if (q5 === 'sun_sensitive' && (q2 === 'sensitive_high' || q2 === 'sensitive_medium')) { type = "Rosácea" + (type.indexOf("Sensible") > -1 ? "" : " Sensible"); concerns.push("fotosensibilidad", "rosácea"); }
+    if (q5 === 'sun_sensitive' && (q2 === 'sensitive_high' || q2 === 'sensitive_medium')) { if (type.indexOf("Rosácea") === -1) { type = "Rosácea " + (type.indexOf("Sensible") > -1 ? "" : "Sensible ") + type; } concerns.push("fotosensibilidad", "rosácea"); }
     return { typeName: type, concerns: concerns, description: skinTypeMapping.getDescription(type) };
   },
   getDescription: function(type) {

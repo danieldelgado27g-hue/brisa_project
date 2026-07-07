@@ -1,40 +1,40 @@
 var quizData = {
   questions: [
     { id: 1, question: "¿Cómo se siente tu piel al despertar por la mañana?", options: [
-      { value: "dry", label: "Tirante y áspera", icon: "💧" },
-      { value: "normal", label: "Cómoda y equilibrada", icon: "✨" },
-      { value: "oily", label: "Brillante o grasosa", icon: "💫" },
-      { value: "mixed", label: "Grasa en frente, seca en mejillas", icon: "🌓" }
+      { value: "dry", label: "Tirante y áspera", icon: "💧", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4e4' width='120' height='80' rx='8'/%3E%3Cpath d='M30 40 Q60 20 90 40' stroke='%23e57373' stroke-width='1.5' fill='none'/%3E%3Cpath d='M30 50 Q60 30 90 50' stroke='%23e57373' stroke-width='1' fill='none' opacity='0.5'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%23c62828' font-size='9'%3EPiel seca%3C/text%3E%3C/svg%3E" },
+      { value: "normal", label: "Cómoda y equilibrada", icon: "✨", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.6'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel equilibrada%3C/text%3E%3C/svg%3E" },
+      { value: "oily", label: "Brillante o grasosa", icon: "💫", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fff8e1' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23ffd54f' opacity='0.5'/%3E%3Ccircle cx='50' cy='30' r='2' fill='%23f57f17'/%3E%3Ccircle cx='70' cy='32' r='2' fill='%23f57f17'/%3E%3Ccircle cx='60' cy='42' r='2' fill='%23f57f17'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel grasa%3C/text%3E%3C/svg%3E" },
+      { value: "mixed", label: "Grasa en frente, seca en mejillas", icon: "🌓", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Crect x='45' y='15' width='30' height='30' fill='%23ffd54f' opacity='0.5' rx='4'/%3E%3Crect x='20' y='40' width='35' height='20' fill='%23fce4e4' opacity='0.6' rx='4'/%3E%3Crect x='65' y='40' width='35' height='20' fill='%23fce4e4' opacity='0.6' rx='4'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel mixta%3C/text%3E%3C/svg%3E" }
     ]},
     { id: 2, question: "¿Con qué frecuencia experimentas sensibilidad o irritación?", options: [
-      { value: "sensitive_high", label: "Muy frecuente — reacciono a casi todo", icon: "⚠️" },
-      { value: "sensitive_medium", label: "A veces — con productos nuevos", icon: "🔶" },
-      { value: "not_sensitive", label: "Casi nunca — mi piel es resistente", icon: "✅" }
+      { value: "sensitive_high", label: "Muy frecuente — reacciono a casi todo", icon: "⚠️", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23ef9a9a' opacity='0.6'/%3E%3Ccircle cx='52' cy='30' r='4' fill='%23e53935' opacity='0.5'/%3E%3Ccircle cx='68' cy='30' r='4' fill='%23e53935' opacity='0.5'/%3E%3Ccircle cx='60' cy='42' r='3' fill='%23e53935' opacity='0.4'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EAlta sensibilidad%3C/text%3E%3C/svg%3E" },
+      { value: "sensitive_medium", label: "A veces — con productos nuevos", icon: "🔶", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Ccircle cx='55' cy='32' r='2' fill='%23e57373' opacity='0.4'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3ESensibilidad moderada%3C/text%3E%3C/svg%3E" },
+      { value: "not_sensitive", label: "Casi nunca — mi piel es resistente", icon: "✅", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23c8e6c9' opacity='0.5'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel resistente%3C/text%3E%3C/svg%3E" }
     ]},
     { id: 3, question: "¿Cómo son tus poros?", options: [
-      { value: "large_pores", label: "Visibles y dilatados", icon: "⭕" },
-      { value: "small_pores", label: "Pequeños, casi invisibles", icon: "•" },
-      { value: "medium_pores", label: "Normales, solo visibles de cerca", icon: "◦" }
+      { value: "large_pores", label: "Visibles y dilatados", icon: "⭕", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fff8e1' width='120' height='80' rx='8'/%3E%3Ccircle cx='40' cy='30' r='5' fill='%23bf360c' opacity='0.4'/%3E%3Ccircle cx='60' cy='35' r='6' fill='%23bf360c' opacity='0.4'/%3E%3Ccircle cx='80' cy='28' r='5' fill='%23bf360c' opacity='0.4'/%3E%3Ccircle cx='50' cy='45' r='4' fill='%23bf360c' opacity='0.3'/%3E%3Ccircle cx='70' cy='48' r='5' fill='%23bf360c' opacity='0.3'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPoros dilatados%3C/text%3E%3C/svg%3E" },
+      { value: "small_pores", label: "Pequeños, casi invisibles", icon: "•", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Ccircle cx='52' cy='32' r='1.5' fill='%23ad1457' opacity='0.3'/%3E%3Ccircle cx='68' cy='35' r='1.5' fill='%23ad1457' opacity='0.3'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPoros pequeños%3C/text%3E%3C/svg%3E" },
+      { value: "medium_pores", label: "Normales, solo visibles de cerca", icon: "◦", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Ccircle cx='50' cy='33' r='2.5' fill='%23ad1457' opacity='0.3'/%3E%3Ccircle cx='68' cy='36' r='2.5' fill='%23ad1457' opacity='0.3'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPoros normales%3C/text%3E%3C/svg%3E" }
     ]},
     { id: 4, question: "¿Tienes tendencia a brotes de acné?", options: [
-      { value: "acne_high", label: "Sí, frecuente y constante", icon: "🔴" },
-      { value: "acne_occasional", label: "Ocasional — antes del período o estrés", icon: "🟡" },
-      { value: "no_acne", label: "No, mi piel está libre de acné", icon: "🟢" }
+      { value: "acne_high", label: "Sí, frecuente y constante", icon: "🔴", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23ef9a9a' opacity='0.5'/%3E%3Ccircle cx='50' cy='30' r='3' fill='%23c62828'/%3E%3Ccircle cx='60' cy='28' r='4' fill='%23c62828'/%3E%3Ccircle cx='70' cy='32' r='3' fill='%23c62828'/%3E%3Ccircle cx='55' cy='42' r='2.5' fill='%23c62828'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EAcné frecuente%3C/text%3E%3C/svg%3E" },
+      { value: "acne_occasional", label: "Ocasional — antes del período o estrés", icon: "🟡", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Ccircle cx='60' cy='32' r='2.5' fill='%23e53935' opacity='0.6'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EAcné ocasional%3C/text%3E%3C/svg%3E" },
+      { value: "no_acne", label: "No, mi piel está libre de acné", icon: "🟢", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23c8e6c9' opacity='0.5'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel libre de acné%3C/text%3E%3C/svg%3E" }
     ]},
     { id: 5, question: "¿Cómo reacciona tu piel al sol?", options: [
-      { value: "sun_sensitive", label: "Me quemo fácilmente, rara vez me bronceo", icon: "☀️" },
-      { value: "sun_normal", label: "Me bronceo gradualmente", icon: "🌤️" },
-      { value: "sun_resistant", label: "Me bronceo rápido, rara vez me quemo", icon: "🏖️" }
+      { value: "sun_sensitive", label: "Me quemo fácilmente, rara vez me bronceo", icon: "☀️", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23ffcdd2' opacity='0.6'/%3E%3Ctext x='60' y='20' font-size='14' text-anchor='middle' fill='%23ff8f00'%3E☀%3C/text%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EFotosensible%3C/text%3E%3C/svg%3E" },
+      { value: "sun_normal", label: "Me bronceo gradualmente", icon: "🌤️", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Ctext x='60' y='20' font-size='14' text-anchor='middle' fill='%23fb8c00'%3E⛅%3C/text%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel normal al sol%3C/text%3E%3C/svg%3E" },
+      { value: "sun_resistant", label: "Me bronceo rápido, rara vez me quemo", icon: "🏖️", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23ffe0b2' opacity='0.6'/%3E%3Ctext x='60' y='20' font-size='14' text-anchor='middle' fill='%23e65100'%3E🏖%3C/text%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel resistente al sol%3C/text%3E%3C/svg%3E" }
     ]},
     { id: 6, question: "¿Notas líneas de expresión o flacidez?", options: [
-      { value: "aging_visible", label: "Sí, visibles incluso sin gesticular", icon: "📅" },
-      { value: "aging_mild", label: "Solo al sonreír o gesticular", icon: "🙂" },
-      { value: "no_aging", label: "Mi piel luce firme y lisa", icon: "👶" }
+      { value: "aging_visible", label: "Sí, visibles incluso sin gesticular", icon: "📅", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Cpath d='M45 30 Q60 22 75 30' stroke='%23ad1457' stroke-width='1.5' fill='none'/%3E%3Cpath d='M45 40 Q60 48 75 40' stroke='%23ad1457' stroke-width='1.2' fill='none' opacity='0.7'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3ELíneas visibles%3C/text%3E%3C/svg%3E" },
+      { value: "aging_mild", label: "Solo al sonreír o gesticular", icon: "🙂", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Cpath d='M48 35 Q60 28 72 35' stroke='%23ad1457' stroke-width='1' fill='none' opacity='0.5'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3ELíneas de expresión%3C/text%3E%3C/svg%3E" },
+      { value: "no_aging", label: "Mi piel luce firme y lisa", icon: "👶", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23c8e6c9' opacity='0.5'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EPiel firme%3C/text%3E%3C/svg%3E" }
     ]},
     { id: 7, question: "¿Tienes manchas o hiperpigmentación?", options: [
-      { value: "hyperpig_high", label: "Sí, varias manchas oscuras", icon: "🟤" },
-      { value: "hyperpig_mild", label: "Algunas pecas o marcas leves", icon: "🟡" },
-      { value: "no_hyperpig", label: "Mi tono es uniforme", icon: "⚪" }
+      { value: "hyperpig_high", label: "Sí, varias manchas oscuras", icon: "🟤", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Ccircle cx='50' cy='30' r='4' fill='%236d4c41' opacity='0.6'/%3E%3Ccircle cx='68' cy='38' r='3.5' fill='%236d4c41' opacity='0.5'/%3E%3Ccircle cx='58' cy='44' r='2.5' fill='%236d4c41' opacity='0.4'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EManchas visibles%3C/text%3E%3C/svg%3E" },
+      { value: "hyperpig_mild", label: "Algunas pecas o marcas leves", icon: "🟡", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23f8bbd0' opacity='0.5'/%3E%3Ccircle cx='55' cy='32' r='2' fill='%238d6e63' opacity='0.5'/%3E%3Ccircle cx='66' cy='36' r='1.5' fill='%238d6e63' opacity='0.4'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3EManchas leves%3C/text%3E%3C/svg%3E" },
+      { value: "no_hyperpig", label: "Mi tono es uniforme", icon: "⚪", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23fce4ec' width='120' height='80' rx='8'/%3E%3Ccircle cx='60' cy='35' r='18' fill='%23c8e6c9' opacity='0.5'/%3E%3Ctext x='60' y='70' text-anchor='middle' fill='%236A4C93' font-size='9'%3ETono uniforme%3C/text%3E%3C/svg%3E" }
     ]}
   ]
 };
@@ -110,6 +110,7 @@ QuizApp.prototype.attachListeners = function() {
       else if (action === 'startQuiz') { self.startQuiz(); }
       else if (action === 'goWelcome') { self.state = 'welcome'; self.render(); }
       else if (action === 'selectOption') { self.selectOption(parseInt(el.dataset.quizQ), el.dataset.quizValue); }
+      else if (action === 'goBack') { self.goBack(); }
       else if (action === 'navigate') { App.navigate(el.dataset.quizRoute); }
     };
   });
@@ -152,13 +153,18 @@ QuizApp.prototype.renderQuestion = function() {
   for (var i = 0; i < q.options.length; i++) {
     var opt = q.options[i];
     opts += '<div class="quiz-option" data-quiz-action="selectOption" data-quiz-q="' + q.id + '" data-quiz-value="' + opt.value + '">' +
-      '<div class="quiz-option-icon">' + opt.icon + '</div>' +
-      '<span>' + opt.label + '</span></div>';
+      (opt.image ? '<img class="quiz-option-img" src="' + opt.image + '" alt="' + opt.label + '">' : '<div class="quiz-option-icon">' + opt.icon + '</div>') +
+      '<span class="quiz-option-label">' + opt.label + '</span></div>';
   }
+  var backBtn = this.currentQuestion > 0
+    ? '<button class="btn btn-secondary btn-sm" style="margin-bottom:0.75rem;" data-quiz-action="goBack">← Atrás</button>'
+    : '';
+
   return '<div class="quiz-wrap">' +
     '<div class="quiz-progress">' + dots + '</div>' +
     '<div class="quiz-count">Pregunta ' + (this.currentQuestion + 1) + ' de ' + total + '</div>' +
     '<div class="quiz-question-card">' +
+    backBtn +
     '<div class="quiz-question-label">' + q.question + '</div>' +
     '<div class="quiz-options">' + opts + '</div>' +
     '</div></div>';
@@ -186,11 +192,11 @@ QuizApp.prototype.renderResult = function() {
 };
 QuizApp.prototype.getSkinImage = function(typeName) {
   var images = {
-    'Normal': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fcd5ce"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fcd5ce"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%23B42A3B" font-size="12"%3EEquilibrada%3C/text%3E%3C/svg%3E',
-    'Seca': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fecaca"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fecaca"/%3E%3Cpath d="M70 140 Q100 120 130 140" stroke="%23B42A3B" stroke-width="2" fill="none"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%23B42A3B" font-size="12"%3ESeca%3C/text%3E%3C/svg%3E',
-    'Grasa': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fde68a"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fde68a"/%3E%3Ccircle cx="90" cy="75" r="3" fill="%23B42A3B"/%3E%3Ccircle cx="110" cy="75" r="3" fill="%23B42A3B"/%3E%3Ccircle cx="100" cy="90" r="3" fill="%23B42A3B"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%23B42A3B" font-size="12"%3EGrasa%3C/text%3E%3C/svg%3E',
-    'Mixta': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fef3c7"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fef3c7"/%3E%3Crect x="85" y="70" width="30" height="20" fill="%23fde68a"/%3E%3Crect x="85" y="130" width="30" height="20" fill="%23fecaca"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%23B42A3B" font-size="12"%3EMixta%3C/text%3E%3C/svg%3E',
-    'Sensible': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fecaca"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fecaca"/%3E%3Ccircle cx="90" cy="75" r="5" fill="%23B42A3B"/%3E%3Ccircle cx="110" cy="75" r="5" fill="%23B42A3B"/%3E%3Ccircle cx="100" cy="85" r="5" fill="%23B42A3B"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%23B42A3B" font-size="12"%3ESensible%3C/text%3E%3C/svg%3E'
+    'Normal': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fcd5ce"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fcd5ce"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%236A4C93" font-size="12"%3EEquilibrada%3C/text%3E%3C/svg%3E',
+    'Seca': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fecaca"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fecaca"/%3E%3Cpath d="M70 140 Q100 120 130 140" stroke="%236A4C93" stroke-width="2" fill="none"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%236A4C93" font-size="12"%3ESeca%3C/text%3E%3C/svg%3E',
+    'Grasa': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fde68a"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fde68a"/%3E%3Ccircle cx="90" cy="75" r="3" fill="%236A4C93"/%3E%3Ccircle cx="110" cy="75" r="3" fill="%236A4C93"/%3E%3Ccircle cx="100" cy="90" r="3" fill="%236A4C93"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%236A4C93" font-size="12"%3EGrasa%3C/text%3E%3C/svg%3E',
+    'Mixta': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fef3c7"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fef3c7"/%3E%3Crect x="85" y="70" width="30" height="20" fill="%23fde68a"/%3E%3Crect x="85" y="130" width="30" height="20" fill="%23fecaca"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%236A4C93" font-size="12"%3EMixta%3C/text%3E%3C/svg%3E',
+    'Sensible': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f4d9d0" width="200" height="200"/%3E%3Ccircle cx="100" cy="80" r="30" fill="%23fecaca"/%3E%3Cellipse cx="100" cy="150" rx="40" ry="50" fill="%23fecaca"/%3E%3Ccircle cx="90" cy="75" r="5" fill="%236A4C93"/%3E%3Ccircle cx="110" cy="75" r="5" fill="%236A4C93"/%3E%3Ccircle cx="100" cy="85" r="5" fill="%236A4C93"/%3E%3Ctext x="100" y="190" text-anchor="middle" fill="%236A4C93" font-size="12"%3ESensible%3C/text%3E%3C/svg%3E'
   };
   if (typeName.indexOf('Seca') > -1) return images['Seca'];
   if (typeName.indexOf('Grasa') > -1) return images['Grasa'];
@@ -212,6 +218,13 @@ QuizApp.prototype.selectOption = function(questionId, value) {
   this.answers[questionId] = value;
   if (this.currentQuestion < quizData.questions.length - 1) { this.currentQuestion++; this.render(); }
   else { this.state = 'loading'; this.render(); }
+};
+QuizApp.prototype.goBack = function() {
+  if (this.currentQuestion <= 0) return;
+  var prevQ = quizData.questions[this.currentQuestion];
+  delete this.answers[prevQ.id];
+  this.currentQuestion--;
+  this.render();
 };
 QuizApp.prototype.finishQuiz = function() {
   var result = skinTypeMapping.calculateType(this.answers);

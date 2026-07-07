@@ -7,6 +7,8 @@ var App = {
     this.updateHeader();
     this.updateBadges();
     this.setupGlobalListeners();
+    this.showWelcomeModal();
+    this.updateUserName();
   },
 
   setupGlobalListeners: function() {
@@ -130,6 +132,8 @@ var App = {
         '<a class="btn btn-primary btn-lg hero-cta" onclick="App.navigate(\'test\')">Prueba Gratuita 🧪<span class="hero-cta-sub">Diagnóstico de tipo de piel + recomendaciones personalizadas</span></a>' +
         '<a class="btn btn-outline-light btn-lg hero-cta" onclick="App.showPlans()" style="border-color:var(--wine);color:var(--wine);">Plan Best ✨<span class="hero-cta-sub">Planes de suscripción con beneficios exclusivos</span></a></div>';
 
+    var carouselHtml = this.renderCarousel();
+
     app.innerHTML = '<div class="hero">' +
       '<div class="hero-bg"></div>' +
       '<div class="hero-content">' +
@@ -139,11 +143,129 @@ var App = {
       '</div>' +
       '<div class="hero-image"><div class="hero-image-placeholder">🧴</div></div>' +
       '</div>' +
+      carouselHtml +
+      '<div class="premium-section"><button class="premium-btn" onclick="App.showPremiumPayment()">Plan Premium<span class="premium-btn-sub">ingresa al control total</span></button></div>' +
       '<div class="benefits">' +
       '<div class="benefit-card"><div class="benefit-icon">🔬</div><h3>Diagnóstico preciso</h3><p>Basado en ciencia dermatológica y validado por expertos.</p></div>' +
       '<div class="benefit-card"><div class="benefit-icon">🎯</div><h3>Recomendaciones a medida</h3><p>Productos seleccionados específicamente para tu tipo de piel.</p></div>' +
       '<div class="benefit-card"><div class="benefit-icon">📊</div><h3>Seguimiento continuo</h3><p>Registra tu evolución y ajusta tu rutina cuando lo necesites.</p></div>' +
       '</div>';
+
+    this.initCarousel();
+  },
+
+  renderCarousel: function() {
+    var slides = [
+      {
+        type: 'productos',
+        img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140"%3E%3Crect fill="%23f3e5f5" width="140" height="140" rx="12"/%3E%3Ccircle cx="70" cy="55" r="20" fill="%23ce93d8"/%3E%3Crect x="45" y="80" width="50" height="6" rx="3" fill="%23ab47bc"/%3E%3Crect x="55" y="92" width="30" height="6" rx="3" fill="%23ab47bc" opacity="0.6"/%3E%3Ctext x="70" y="125" text-anchor="middle" fill="%236A4C93" font-size="14" font-weight="bold"%3E🧴%3C/text%3E%3C/svg%3E',
+        title: 'Productos más pedidos',
+        body: 'Descubre los favoritos de nuestra comunidad: limpiadores, hidratantes y protectores solares mejor evaluados.',
+        action: 'Ver detalles',
+        onClick: "App.navigate('productos')"
+      },
+      {
+        type: 'dermatologas',
+        avatar: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44"%3E%3Crect fill="%23ce93d8" width="44" height="44" rx="22"/%3E%3Ccircle cx="22" cy="16" r="8" fill="%23f3e5f5"/%3E%3Cellipse cx="22" cy="32" rx="14" ry="10" fill="%23f3e5f5"/%3E%3C/svg%3E',
+        name: 'Dra. Valeria Mendoza',
+        specialty: 'Dermatóloga Cosmética',
+        title: 'Dermatólogas recomendadas',
+        body: 'Agenda una consulta con nuestras especialistas certificadas en cuidado de la piel.',
+        action: 'Agendar consulta',
+        onClick: "App.navigate('consultas')"
+      },
+      {
+        type: 'educativo',
+        img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140"%3E%3Crect fill="%23e8eaf6" width="140" height="140" rx="12"/%3E%3Ccircle cx="70" cy="50" r="18" fill="%239c27b0" opacity="0.2"/%3E%3Ctext x="70" y="56" text-anchor="middle" fill="%236A4C93" font-size="24"%3E📖%3C/text%3E%3Crect x="35" y="75" width="70" height="6" rx="3" fill="%236A4C93" opacity="0.3"/%3E%3Crect x="45" y="87" width="50" height="6" rx="3" fill="%236A4C93" opacity="0.2"/%3E%3Crect x="50" y="99" width="40" height="6" rx="3" fill="%236A4C93" opacity="0.15"/%3E%3C/svg%3E',
+        title: 'Contenido educativo',
+        body: 'Aprende sobre rutinas de cuidado, ingredientes clave y las mejores promociones del mes.',
+        action: 'Leer más',
+        onClick: "App.navigate('contacto')"
+      }
+    ];
+
+    var slidesHtml = '';
+    for (var i = 0; i < slides.length; i++) {
+      var s = slides[i];
+      var imgOrAvatar = '';
+      if (s.type === 'dermatologas') {
+        imgOrAvatar = '<div class="carousel-slide-author">' +
+          '<img class="carousel-slide-avatar" src="' + s.avatar + '" alt="' + s.name + '">' +
+          '<div class="carousel-slide-author-info"><strong>' + s.name + '</strong>' + s.specialty + '</div></div>';
+      } else {
+        imgOrAvatar = '<img class="carousel-slide-img" src="' + s.img + '" alt="' + s.title + '">';
+      }
+      slidesHtml += '<div class="carousel-slide" data-index="' + i + '">' +
+        imgOrAvatar +
+        '<div class="carousel-slide-content">' +
+        '<h3>' + s.title + '</h3>' +
+        '<p>' + s.body + '</p>' +
+        '<button class="btn btn-primary" onclick="' + s.onClick + '">' + s.action + '</button>' +
+        '</div></div>';
+    }
+
+    var dotsHtml = '';
+    for (var i = 0; i < slides.length; i++) {
+      dotsHtml += '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '" onclick="App.goToSlide(' + i + ')"></button>';
+    }
+
+    return '<div class="carousel-section">' +
+      '<div class="carousel-wrapper">' +
+      '<button class="carousel-btn carousel-btn-prev" onclick="App.prevSlide()">‹</button>' +
+      '<div class="carousel-track">' + slidesHtml + '</div>' +
+      '<button class="carousel-btn carousel-btn-next" onclick="App.nextSlide()">›</button>' +
+      '</div>' +
+      '<div class="carousel-dots">' + dotsHtml + '</div>' +
+      '</div>';
+  },
+
+  initCarousel: function() {
+    var track = document.querySelector('.carousel-track');
+    if (!track) return;
+    this.carouselIndex = 0;
+    this.carouselCount = track.children.length;
+    this.updateCarousel();
+    var self = this;
+    if (this._carouselTimer) clearInterval(this._carouselTimer);
+    this._carouselTimer = setInterval(function() { self.nextSlide(); }, 4000);
+  },
+
+  updateCarousel: function() {
+    var track = document.querySelector('.carousel-track');
+    var dots = document.querySelectorAll('.carousel-dot');
+    if (!track) return;
+    track.style.transform = 'translateX(-' + (this.carouselIndex * 100) + '%)';
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === this.carouselIndex);
+    }.bind(this));
+  },
+
+  nextSlide: function() {
+    if (this.carouselIndex === undefined) return;
+    this.carouselIndex = (this.carouselIndex + 1) % this.carouselCount;
+    this.updateCarousel();
+    this.resetCarouselTimer();
+  },
+
+  prevSlide: function() {
+    if (this.carouselIndex === undefined) return;
+    this.carouselIndex = (this.carouselIndex - 1 + this.carouselCount) % this.carouselCount;
+    this.updateCarousel();
+    this.resetCarouselTimer();
+  },
+
+  goToSlide: function(index) {
+    this.carouselIndex = index;
+    this.updateCarousel();
+    this.resetCarouselTimer();
+  },
+
+  resetCarouselTimer: function() {
+    if (this._carouselTimer) {
+      clearInterval(this._carouselTimer);
+      var self = this;
+      this._carouselTimer = setInterval(function() { self.nextSlide(); }, 4000);
+    }
   },
 
   renderTest: function(app) {
@@ -227,14 +349,9 @@ var App = {
       '<div class="product-detail-section"><h4>Ingredientes</h4><p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:0.5rem;">' + p.ingredients + '</p><div class="ingredients-list">' + p.ingredients.split(', ').map(function(i) { return '<span class="ingredient-tag">' + i + '</span>'; }).join('') + '</div></div>' +
       '<div class="product-detail-section"><h4>¿Cómo ayuda a mi piel?</h4><p style="color:var(--text-secondary);">' + p.description + '</p><p style="color:var(--text-secondary);margin-top:0.5rem;">' + p.howHelps + '</p></div>' +
       '<div style="display:flex;gap:0.75rem;flex-wrap:wrap;">' +
-      '<button class="btn btn-primary" style="flex:1;" onclick="App.addToCart(' + p.id + ')">🛒 Agregar al carrito</button>' +
+      '<a class="btn btn-primary" style="flex:1;text-decoration:none;" href="https://w.app/dermamatch" target="_blank">📱 Contactar tienda</a>' +
       '</div>' +
       '</div>';
-  },
-
-  addToCart: function(productId) {
-    var p = Products.getById(productId);
-    if (p) { Storage.addToCart(p); Utils.showModal({ type: 'success', title: 'Agregado', message: p.name + ' agregado al carrito.' }); }
   },
 
   toggleFav: function(productId, btn) {
@@ -563,6 +680,93 @@ var App = {
   selectPlan: function(plan) {
     document.querySelector('.modal-overlay').remove();
     Utils.showModal({ type: 'success', title: '¡Plan seleccionado!', message: 'Has elegido el plan ' + plan + '. Pronto recibirás instrucciones de pago.' });
+  },
+
+  showPremiumPayment: function() {
+    var existing = document.querySelector('.modal-overlay');
+    if (existing) existing.remove();
+
+    var div = document.createElement('div');
+    div.className = 'modal-overlay';
+    div.innerHTML = '<div class="modal-content" style="max-width:480px;">' +
+      '<h3>✨ Plan Premium</h3>' +
+      '<p style="text-align:center;color:var(--text-secondary);margin-bottom:1.5rem;">Ingresa al control total de tu cuidado de piel</p>' +
+      '<div class="cart-section">' +
+      '<h3>Tipo de tarjeta</h3>' +
+      '<label class="cart-radio"><input type="radio" name="cardType" value="visa" checked> 💳 Visa</label>' +
+      '<label class="cart-radio"><input type="radio" name="cardType" value="mastercard"> 💳 Mastercard</label>' +
+      '<label class="cart-radio"><input type="radio" name="cardType" value="amex"> 💳 American Express</label>' +
+      '</div>' +
+      '<div class="cart-section">' +
+      '<h3>Datos de pago</h3>' +
+      '<input type="text" class="cart-input" placeholder="Número de tarjeta" id="pmCardNumber">' +
+      '<div style="display:flex;gap:0.75rem;">' +
+      '<input type="text" class="cart-input" placeholder="MM/AA" id="pmCardExpiry" style="flex:1;">' +
+      '<input type="text" class="cart-input" placeholder="CVC" id="pmCardCvc" style="flex:1;">' +
+      '</div>' +
+      '<input type="text" class="cart-input" placeholder="Nombre del titular" id="pmCardName">' +
+      '</div>' +
+      '<button class="btn btn-primary btn-full" onclick="App.processPremiumPayment()">Activar Plan Premium — S/19.99/mes</button>' +
+      '<button class="btn btn-secondary btn-full" style="margin-top:0.5rem;" onclick="this.closest(\'.modal-overlay\').remove()">Cancelar</button>' +
+      '</div>';
+    document.body.appendChild(div);
+  },
+
+  processPremiumPayment: function() {
+    var cardNumber = document.getElementById('pmCardNumber').value.trim();
+    var cardExpiry = document.getElementById('pmCardExpiry').value.trim();
+    var cardCvc = document.getElementById('pmCardCvc').value.trim();
+    var cardName = document.getElementById('pmCardName').value.trim();
+    if (!cardNumber || !cardExpiry || !cardCvc || !cardName) {
+      Utils.showModal({ type: 'error', title: 'Campos requeridos', message: 'Completa todos los datos de pago.' });
+      return;
+    }
+    document.querySelector('.modal-overlay').remove();
+    Utils.showModal({ type: 'success', title: '¡Plan Premium activado!', message: 'Bienvenida al control total. Disfruta de todos los beneficios exclusivos.' });
+  },
+
+  showWelcomeModal: function() {
+    var savedName = localStorage.getItem('dmUserName');
+    if (savedName) return;
+    var existing = document.querySelector('.modal-overlay');
+    if (existing) return;
+
+    var div = document.createElement('div');
+    div.className = 'modal-overlay';
+    div.id = 'welcomeModal';
+    div.innerHTML = '<div class="modal-content" style="text-align:center;">' +
+      '<div style="font-size:3rem;margin-bottom:0.75rem;">🧴</div>' +
+      '<h3>¡Bienvenida a DermaMatch!</h3>' +
+      '<p style="color:var(--text-secondary);margin-bottom:1.25rem;font-size:0.9rem;">Queremos conocerte. ¿Cómo te llamas?</p>' +
+      '<input type="text" id="welcomeNameInput" class="cart-input" placeholder="Tu nombre" style="text-align:center;font-size:1.05rem;" maxlength="30">' +
+      '<button class="btn btn-primary btn-full" onclick="App.saveWelcomeName()">Guardar</button>' +
+      '</div>';
+    document.body.appendChild(div);
+    setTimeout(function() {
+      var input = document.getElementById('welcomeNameInput');
+      if (input) input.focus();
+    }, 300);
+  },
+
+  saveWelcomeName: function() {
+    var name = document.getElementById('welcomeNameInput').value.trim();
+    if (!name) {
+      Utils.showModal({ type: 'error', title: 'Nombre requerido', message: 'Por favor ingresa tu nombre para continuar.' });
+      return;
+    }
+    localStorage.setItem('dmUserName', name);
+    var modal = document.getElementById('welcomeModal');
+    if (modal) modal.remove();
+    this.updateUserName();
+    Utils.showModal({ type: 'success', title: '¡Guardado!', message: 'Bienvenida, ' + name + '. Tu nombre ha sido guardado.' });
+  },
+
+  updateUserName: function() {
+    var name = localStorage.getItem('dmUserName') || 'Beauty Lover';
+    var els = document.querySelectorAll('.usuario-nombre');
+    for (var i = 0; i < els.length; i++) {
+      els[i].textContent = name;
+    }
   }
 };
 

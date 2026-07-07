@@ -40,6 +40,9 @@ var Profile = {
         <!-- Header con perfil -->
         ${this.renderProfileHeader(skinProfile)}
 
+        <!-- Favoritos -->
+        ${this.renderFavoriteProducts()}
+
         <!-- Sección de configuración -->
         ${this.renderConfigSection(skinProfile)}
 
@@ -76,6 +79,23 @@ var Profile = {
             📋 Mi Rutina Personalizada
           </button>
         </div>
+      </div>
+    `;
+  },
+
+  // Renderizar productos favoritos
+  renderFavoriteProducts: function() {
+    var favIds = Storage.getFavorites();
+    if (favIds.length === 0) return '';
+    var products = favIds.map(function(id) { return Products.getById(id); }).filter(function(p) { return p; });
+    var cardsHtml = products.map(function(p) { return Products.renderCard(p); }).join('');
+    return `
+      <div class="fav-section" style="margin-top:1.5rem;">
+        <div class="section-header">
+          <h2>♥ Mis Favoritos</h2>
+          <p class="section-description">Productos que has marcado como favoritos</p>
+        </div>
+        <div class="fav-grid">${cardsHtml}</div>
       </div>
     `;
   },

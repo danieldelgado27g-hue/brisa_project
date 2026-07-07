@@ -73,8 +73,12 @@ var Products = {
     var labels = '';
     if (product.eco) labels = labels + '<span class="badge-label">Ecológico</span> ';
     if (product.cruelty) labels = labels + '<span class="badge-label">Sin crueldad animal</span>';
+    var isFav = Storage.isFavorite(product.id);
     var html = '<div class="product-card" data-pid="' + product.id + '">';
+    html = html + '<div style="position:relative;">';
     html = html + '<img src="' + product.image + '" alt="' + product.name + '">';
+    html = html + '<button class="product-card-fav ' + (isFav ? 'active' : '') + '" onclick="event.stopPropagation();App.toggleFav(' + product.id + ',this)">' + (isFav ? '♥' : '♡') + '</button>';
+    html = html + '</div>';
     html = html + '<div class="product-card-info">';
     html = html + '<div class="product-card-name">' + product.name + '</div>';
     html = html + '<div class="product-card-price">' + eur + product.price.toFixed(2) + '</div>';

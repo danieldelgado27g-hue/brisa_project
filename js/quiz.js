@@ -111,7 +111,10 @@ QuizApp.prototype.attachListeners = function() {
       else if (action === 'goWelcome') { self.state = 'welcome'; self.render(); }
       else if (action === 'selectOption') { self.selectOption(parseInt(el.dataset.quizQ), el.dataset.quizValue); }
       else if (action === 'goBack') { self.goBack(); }
-      else if (action === 'navigate') { App.navigate(el.dataset.quizRoute); }
+      else if (action === 'navigate') {
+        var params = el.dataset.quizPid ? { id: parseInt(el.dataset.quizPid) } : {};
+        App.navigate(el.dataset.quizRoute, params);
+      }
     };
   });
 };
@@ -177,6 +180,23 @@ QuizApp.prototype.renderLoading = function() {
 QuizApp.prototype.renderResult = function() {
   var profile = Storage.getProfile();
   var skinImage = this.getSkinImage(profile.typeName);
+
+  var recommendedHtml = '';
+  var recommended = profile.recommendedProducts || [];
+  if (recommended.length > 0) {
+    var items = recommended.slice(0, 6).map(function(p) {
+      return '<div class="quiz-rec-item" data-quiz-action="navigate" data-quiz-route="producto" data-quiz-pid="' + p.id + '" style="cursor:pointer;padding:0.5rem;border:1px solid var(--gray-200);border-radius:var(--radius-md);text-align:left;display:flex;align-items:center;gap:0.5rem;">' +
+        '<span style="font-size:1.25rem;">🧴</span>' +
+        '<div><div style="font-weight:600;font-size:0.85rem;">' + p.name + '</div>' +
+        '<div style="font-size:0.75rem;color:var(--text-secondary);">' + p.brand + ' · S/.' + parseFloat(p.price).toFixed(2) + '</div></div>' +
+        '</div>';
+    }).join('');
+    recommendedHtml = '<div class="quiz-concerns" style="text-align:left;">' +
+      '<strong style="display:block;margin-bottom:0.5rem;">Productos recomendados para ti:</strong>' +
+      '<div style="display:flex;flex-direction:column;gap:0.4rem;">' + items + '</div>' +
+      '</div>';
+  }
+
   return '<div class="quiz-wrap">' +
     '<div class="quiz-card" style="text-align:center;">' +
     '<img src="' + skinImage + '" class="skin-type-image" alt="' + profile.typeName + '">' +
@@ -186,7 +206,8 @@ QuizApp.prototype.renderResult = function() {
     (profile.concerns.length > 0
       ? '<div class="quiz-concerns"><strong>Preocupaciones detectadas:</strong> ' + profile.concerns.join(', ') + '</div>'
       : '<p style="color:var(--success);font-weight:700;margin-bottom:1rem;">✅ ¡Tu piel está sana! Mantenla así.</p>') +
-    '<button class="btn btn-primary btn-full" data-quiz-action="navigate" data-quiz-route="productos">Ver mis productos</button>' +
+    recommendedHtml +
+    '<button class="btn btn-primary btn-full" style="margin-top:1rem;" data-quiz-action="navigate" data-quiz-route="recomendados">Ver mis productos recomendados</button>' +
     '<button class="btn btn-secondary btn-full" style="margin-top:0.5rem;" data-quiz-action="navigate" data-quiz-route="profile">Ir a mi perfil</button>' +
     '</div></div>';
 };
@@ -228,8 +249,70 @@ QuizApp.prototype.goBack = function() {
 };
 QuizApp.prototype.finishQuiz = function() {
   var result = skinTypeMapping.calculateType(this.answers);
-  var profile = { typeName: result.typeName, concerns: result.concerns, description: result.description, date: new Date().toISOString() };
-  Storage.setProfile(profile);
-  this.state = 'result';
-  this.render();
+
+  // Mapeo de respuestas a formato del backend
+  var answers = {};
+  for (var key in this.answers) {
+    answers['q' + key] = this.answers[key];
+  }
+
+  // Mapeo de concerns a allergies según las respuestas
+  var allergyMap = {
+    'sensible': ['fragrance-free'],
+    'muy_sensible': ['fragrance-free', 'hypoallergenic'],
+    'rosacea': ['fragrance-free'],
+    'atopica': ['fragrance-free', 'hypoallergenic']
+  };
+
+  var allergies = [];
+  if (result.typeName.indexOf('Sensible') !== -1) {
+    allergies = allergyMap['sensible'];
+  } else if (result.typeName.indexOf('Atópica') !== -1) {
+    allergies = allergyMap['atopica'];
+  }
+
+  var profile = {
+    typeName: result.typeName,
+    concerns: result.concerns,
+    allergies: allergies,
+    description: result.description,
+    answers: answers,
+    date: new Date().toISOString()
+  };
+
+  // Guardar en backend
+  var self = this;
+  Storage.saveDiagnosisToBackend(profile).then(function(response) {
+    if (!response.ok) {
+      console.warn('No se pudo guardar en backend, usando local:', response.error);
+    }
+    // Fetch quiz-based product recommendations
+    return self.fetchRecommendations(answers);
+  }).then(function(recommended) {
+    var p = Storage.getProfile();
+    if (p && recommended) {
+      p.recommendedProducts = recommended;
+      Storage.setProfile(p);
+    }
+    self.state = 'result';
+    self.render();
+  }).catch(function(error) {
+    console.error('Error guardando diagnóstico:', error);
+    Storage.setProfile(profile);
+    self.state = 'result';
+    self.render();
+  });
+};
+
+QuizApp.prototype.fetchRecommendations = function(answers) {
+  var apiUrl = window.API_BASE_URL || 'http://localhost:3000/api';
+  var params = [];
+  for (var k in answers) {
+    params.push('q' + k + '=' + encodeURIComponent(answers[k]));
+  }
+  var qs = params.length ? '?' + params.join('&') : '';
+  return fetch(apiUrl + '/quiz-recommendations' + qs)
+    .then(function(res) { return res.json(); })
+    .then(function(data) { return data.products || []; })
+    .catch(function() { return []; });
 };

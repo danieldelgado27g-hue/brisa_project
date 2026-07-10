@@ -67,6 +67,98 @@ window.Storage = {
   setProfile: function(profile) {
     try { sessionStorage.setItem('skinProfile', JSON.stringify(profile)); } catch(e) {}
   },
+  /**
+   * Guarda el diagnóstico de piel en el backend (POST /api/diagnosis)
+   * @param {object} profile - Datos del perfil {typeName, type_id, concerns, allergies, description, answers}
+   * @returns {Promise} Resultado del backend
+   */
+  saveDiagnosisToBackend: function(profile) {
+    var self = this;
+
+    // Mapear nombres de tipos a IDs del backend
+    var typeMap = {
+      'Normal': 'normal',
+      'Seca': 'dry',
+      'Seca Sensible': 'dry',
+      'Seca Atópica': 'atopic',
+      'Grasa': 'oily',
+      'Grasa con Acné': 'acne',
+      'Mixta': 'mixed',
+      'Sensible': 'sensitive',
+      'Sensible con Rosácea': 'sensitive',
+      'Atópica': 'atopic'
+    };
+
+    // Determinar type_id basado en typeName
+    var type_id = 'normal'; // default
+    for (var key in typeMap) {
+      if (profile.typeName && profile.typeName.indexOf(key) !== -1) {
+        type_id = typeMap[key];
+        break;
+      }
+    }
+
+    // Construir el payload para el backend
+    var payload = {
+      type_name: profile.typeName || 'Desconocido',
+      type_id: type_id,
+      concerns: profile.concerns || [],
+      allergies: profile.allergies || [],
+      description: profile.description || '',
+      answers: profile.answers || {}
+    };
+
+    return window.api.post('/diagnosis', payload)
+      .then(function(response) {
+        if (response.success && response.profile) {
+          var p = response.profile;
+          self.setProfile({
+            typeName: p.type_name || p.typeName,
+            concerns: p.concerns || [],
+            allergies: p.allergies || [],
+            description: p.description || '',
+            answers: p.answers || {},
+            date: new Date().toISOString()
+          });
+          return { ok: true, profile: p };
+        }
+        return { ok: false, error: 'Respuesta inválida del servidor' };
+      })
+      .catch(function(error) {
+        self.setProfile(profile);
+        return { ok: false, error: error.error || 'Guardado local' };
+      });
+  },
+  /**
+   * Carga el diagnóstico desde el backend (GET /api/diagnosis)
+   * @returns {Promise} Perfil de piel
+   */
+  loadDiagnosisFromBackend: function() {
+    var self = this;
+    var apiUrl = window.API_BASE_URL || 'http://localhost:3000/api';
+
+    var loadToken = localStorage.getItem('auth_token');
+    var loadHeaders = loadToken ? { 'Authorization': 'Bearer ' + loadToken } : {};
+    return fetch(apiUrl + '/diagnosis', { headers: loadHeaders })
+      .then(function(response) {
+        if (!response.ok) throw new Error('No hay perfil');
+        return response.json();
+      })
+      .then(function(response) {
+        if (response.profile) {
+          self.setProfile(response.profile);
+          return { ok: true, profile: response.profile };
+        }
+        throw new Error('No hay perfil');
+      })
+      .catch(function() {
+        var localProfile = self.getProfile();
+        if (localProfile) {
+          return { ok: true, profile: localProfile };
+        }
+        return { ok: false, error: 'No hay perfil disponible' };
+      });
+  },
   getRoutine: function() {
     try { var data = sessionStorage.getItem('myRoutine'); return data ? JSON.parse(data) : []; } catch(e) { return []; }
   },
@@ -93,12 +185,22 @@ window.Storage = {
     try { var data = sessionStorage.getItem('productReviews_' + productId); return data ? JSON.parse(data) : null; } catch(e) { return null; }
   },
   getCommunityRoutines: function() {
-    return [
-      { user: "Ana S.", skinType: "Seca Sensible", allergies: ["fragrance-free"], products: [1, 4, 11], likes: 45, avatar: "🌸" },
-      { user: "Carla R.", skinType: "Grasa con Acné", allergies: ["oil-free"], products: [2, 6, 7, 5], likes: 32, avatar: "✨" },
-      { user: "Lucía M.", skinType: "Mixta", allergies: ["non-comedogenic"], products: [3, 8, 12], likes: 28, avatar: "🦋" },
-      { user: "Sofía P.", skinType: "Normal", allergies: [], products: [1, 3, 5, 9], likes: 56, avatar: "💫" }
-    ];
+    // Backend integration - GET /api/community-routines
+    return window.api.get('/community-routines')
+      .then(function(response) {
+        var routines = response.routines || [];
+        return routines;
+      })
+      .catch(function(error) {
+        console.error('Error cargando rutinas de comunidad:', error);
+        // Fallback a datos mock
+        return [
+          { user: "Ana S.", skin_type: "Seca Sensible", allergies: ["fragrance-free"], products: [1, 4, 11], likes_count: 45, avatar_emoji: "🌸" },
+          { user: "Carla R.", skin_type: "Grasa con Acné", allergies: ["oil-free"], products: [2, 6, 7, 5], likes_count: 32, avatar_emoji: "✨" },
+          { user: "Lucía M.", skin_type: "Mixta", allergies: ["non-comedogenic"], products: [3, 8, 12], likes_count: 28, avatar_emoji: "🦋" },
+          { user: "Sofía P.", skin_type: "Normal", allergies: [], products: [1, 3, 5, 9], likes_count: 56, avatar_emoji: "💫" }
+        ];
+      });
   },
   saveGeneratedRoutine: function(routine) {
     try { sessionStorage.setItem('generatedRoutine', JSON.stringify(routine)); } catch(e) {}
@@ -121,24 +223,86 @@ window.Storage = {
     try { sessionStorage.setItem('dmCart', JSON.stringify(cart)); } catch(e) {}
   },
   addToCart: function(product) {
-    var cart = Storage.getCart();
-    var existing = null;
-    for (var i = 0; i < cart.length; i++) { if (cart[i].id === product.id) { existing = cart[i]; break; } }
-    if (existing) { existing.qty = (existing.qty || 1) + 1; }
-    else { cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, brand: product.brand, qty: 1 }); }
-    Storage.setCart(cart);
-    App.updateBadges();
+    // Backend integration - POST /api/cart
+    return window.api.post('/cart', { product_id: product.id, qty: 1 })
+      .then(function(response) {
+        if (response.success || response.item) {
+          // Actualizar carrito local
+          window.api.get('/cart').then(function(cartResponse) {
+            var items = cartResponse.items || [];
+            // Convertir formato del backend a formato local
+            var localCart = items.map(function(item) {
+              return {
+                id: item.product.id,
+                name: item.product.name,
+                price: item.product.price,
+                image: item.product.image_url || item.product.image,
+                brand: item.product.brand,
+                qty: item.qty
+              };
+            });
+            Storage.setCart(localCart);
+            App.updateBadges();
+            return { ok: true };
+          });
+          return { ok: true };
+        }
+        return { ok: false, error: 'Error al agregar al carrito' };
+      })
+      .catch(function(error) {
+        // Fallback a sessionStorage si falla el API
+        var cart = Storage.getCart();
+        var existing = null;
+        for (var i = 0; i < cart.length; i++) { if (cart[i].id === product.id) { existing = cart[i]; break; } }
+        if (existing) { existing.qty = (existing.qty || 1) + 1; }
+        else { cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, brand: product.brand, qty: 1 }); }
+        Storage.setCart(cart);
+        App.updateBadges();
+        return { ok: true, fallback: true };
+      });
   },
   removeFromCart: function(productId) {
-    var cart = Storage.getCart();
-    var newCart = [];
-    for (var i = 0; i < cart.length; i++) { if (cart[i].id !== productId) newCart.push(cart[i]); }
-    Storage.setCart(newCart);
-    App.updateBadges();
+    // Backend integration - DELETE /api/cart/:productId
+    return window.api.delete('/cart/' + productId)
+      .then(function(response) {
+        if (response.success) {
+          // Actualizar carrito local
+          return window.api.get('/cart').then(function(cartResponse) {
+            var items = cartResponse.items || [];
+            var localCart = items.map(function(item) {
+              return {
+                id: item.product.id,
+                name: item.product.name,
+                price: item.product.price,
+                image: item.product.image_url || item.product.image,
+                brand: item.product.brand,
+                qty: item.qty
+              };
+            });
+            Storage.setCart(localCart);
+            App.updateBadges();
+            return { ok: true };
+          });
+        }
+        return { ok: false, error: 'Error al eliminar del carrito' };
+      })
+      .catch(function(error) {
+        // Fallback a sessionStorage
+        var cart = Storage.getCart();
+        var newCart = [];
+        for (var i = 0; i < cart.length; i++) { if (cart[i].id !== productId) newCart.push(cart[i]); }
+        Storage.setCart(newCart);
+        App.updateBadges();
+        return { ok: true, fallback: true };
+      });
   },
   clearCart: function() {
+    // Limpiar localmente inmediatamente
     Storage.setCart([]);
     App.updateBadges();
+
+    // El backend limpia el carrito cuando se crea una orden
+    // No hay endpoint específico para limpiar el carrito
   },
 
   // === NEW: Favorites ===
@@ -149,13 +313,56 @@ window.Storage = {
     try { sessionStorage.setItem('dmFavs', JSON.stringify(favs)); } catch(e) {}
   },
   toggleFavorite: function(productId) {
-    var favs = Storage.getFavorites();
-    var idx = favs.indexOf(productId);
-    if (idx > -1) { favs.splice(idx, 1); }
-    else { favs.push(productId); }
-    Storage.setFavorites(favs);
-    App.updateBadges();
-    return idx === -1;
+    // Backend integration - verificar si ya es favorito
+    var isCurrentlyFav = this.isFavorite(productId);
+
+    if (isCurrentlyFav) {
+      // Eliminar favorito - DELETE /api/favorites/:productId
+      return window.api.delete('/favorites/' + productId)
+        .then(function(response) {
+          if (response.success) {
+            // Actualizar localmente
+            var favs = Storage.getFavorites();
+            var idx = favs.indexOf(productId);
+            if (idx > -1) { favs.splice(idx, 1); }
+            Storage.setFavorites(favs);
+            App.updateBadges();
+            return false; // Ahora no es favorito
+          }
+          return true; // Sigue siendo favorito
+        })
+        .catch(function(error) {
+          // Fallback a sessionStorage
+          var favs = Storage.getFavorites();
+          var idx = favs.indexOf(productId);
+          if (idx > -1) { favs.splice(idx, 1); }
+          Storage.setFavorites(favs);
+          App.updateBadges();
+          return false;
+        });
+    } else {
+      // Agregar favorito - POST /api/favorites
+      return window.api.post('/favorites', { product_id: productId })
+        .then(function(response) {
+          if (response.success || response.favorite) {
+            // Actualizar localmente
+            var favs = Storage.getFavorites();
+            favs.push(productId);
+            Storage.setFavorites(favs);
+            App.updateBadges();
+            return true; // Ahora es favorito
+          }
+          return false;
+        })
+        .catch(function(error) {
+          // Fallback a sessionStorage
+          var favs = Storage.getFavorites();
+          favs.push(productId);
+          Storage.setFavorites(favs);
+          App.updateBadges();
+          return true;
+        });
+    }
   },
   isFavorite: function(productId) {
     return Storage.getFavorites().indexOf(productId) > -1;
@@ -175,27 +382,64 @@ window.Storage = {
     try { if (user) sessionStorage.setItem('dmCurrentUser', JSON.stringify(user)); else sessionStorage.removeItem('dmCurrentUser'); } catch(e) {}
   },
   login: function(email, password) {
-    var users = Storage.getUsers();
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].email === email && users[i].password === password) {
-        Storage.setCurrentUser(users[i]);
-        return { ok: true, user: users[i] };
-      }
-    }
-    return { ok: false, error: 'Email o contraseña incorrectos' };
+    // Backend integration - POST /api/auth/login
+    return window.api.post('/auth/login', { email: email, password: password })
+      .then(function(response) {
+        if (response.success && response.user && response.token) {
+          // Guardar token y usuario
+          window.api.setToken(response.token);
+          Storage.setCurrentUser(response.user);
+          // Guardar nombre en localStorage para display
+          localStorage.setItem('dmUserName', response.user.name);
+          return { ok: true, user: response.user };
+        }
+        return { ok: false, error: 'Respuesta inválida del servidor' };
+      })
+      .catch(function(error) {
+        return { ok: false, error: error.error || 'Error al iniciar sesión' };
+      });
   },
   register: function(name, email, password) {
-    var users = Storage.getUsers();
-    for (var i = 0; i < users.length; i++) { if (users[i].email === email) return { ok: false, error: 'Este email ya está registrado' }; }
-    var user = { name: name, email: email, password: password };
-    users.push(user);
-    Storage.setUsers(users);
-    Storage.setCurrentUser(user);
-    return { ok: true, user: user };
+    // Backend integration - POST /api/auth/register
+    return window.api.post('/auth/register', { name: name, email: email, password: password })
+      .then(function(response) {
+        if (response.success && response.user && response.token) {
+          // Guardar token y usuario
+          window.api.setToken(response.token);
+          Storage.setCurrentUser(response.user);
+          // Guardar nombre en localStorage para display
+          localStorage.setItem('dmUserName', response.user.name);
+          return { ok: true, user: response.user };
+        }
+        return { ok: false, error: 'Respuesta inválida del servidor' };
+      })
+      .catch(function(error) {
+        return { ok: false, error: error.error || 'Error al registrarse' };
+      });
   },
   logout: function() {
-    Storage.setCurrentUser(null);
-    App.updateHeader();
+    // Backend integration - POST /api/auth/logout (opcional, limpia token local)
+    var self = this;
+    return window.api.post('/auth/logout', {})
+      .then(function() {
+        window.api.clearToken();
+        Storage.setCurrentUser(null);
+        localStorage.removeItem('dmUserName');
+        App.updateHeader();
+        return { ok: true };
+      })
+      .catch(function() {
+        // Even if API call fails, clear local session
+        window.api.clearToken();
+        Storage.setCurrentUser(null);
+        localStorage.removeItem('dmUserName');
+        App.updateHeader();
+        return { ok: true };
+      });
+  },
+  // Verificar si hay token válido
+  isAuthenticated: function() {
+    return window.api.isAuthenticated();
   },
 
   // === NEW: Skin Diary ===

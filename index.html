@@ -17,27 +17,37 @@
         <button class="sidebar-close" id="sidebarClose" onclick="App.toggleSidebar()">✕</button>
       </div>
       <nav class="sidebar-nav">
-        <a class="sidebar-item" data-route="test" onclick="App.navigate('test')">
-          <span class="sidebar-icon">🧪</span>
-          <span>Test</span>
-        </a>
         <a class="sidebar-item" data-route="productos" onclick="App.navigate('productos')">
           <span class="sidebar-icon">🧴</span>
           <span>Productos</span>
         </a>
-        <a class="sidebar-item" data-route="diary" onclick="App.navigate('diary')">
+        <a class="sidebar-item" data-route="test" onclick="App.navigate('test')">
+          <span class="sidebar-icon">🧪</span>
+          <span>Test</span>
+        </a>
+        <a class="sidebar-item" data-route="profile" data-auth="required" onclick="App.navigate('profile')">
+          <span class="sidebar-icon">⚙️</span>
+          <span>Configuración de la Piel</span>
+        </a>
+        <a class="sidebar-item" data-route="diary" data-auth="required" onclick="App.navigate('diary')">
           <span class="sidebar-icon">📓</span>
           <span>Skin-Diary</span>
         </a>
-        <a class="sidebar-item" data-route="consultas" onclick="App.navigate('consultas')">
+        <a class="sidebar-item" data-route="consultas" data-auth="required" onclick="App.navigate('consultas')">
           <span class="sidebar-icon">👩‍⚕️</span>
           <span>Consultas</span>
         </a>
       </nav>
       <div class="sidebar-footer">
-        <div class="sidebar-user" onclick="App.navigate('profile')">
+        <div class="sidebar-user" data-auth="required" onclick="App.navigate('profile')">
           <span class="sidebar-icon">👤</span>
           <span id="sidebarUserName" class="usuario-nombre">Mi Perfil</span>
+        </div>
+        <div id="adminPanelLink" style="display:none;">
+          <a class="sidebar-item" data-route="admin" onclick="App.navigate('admin')" style="margin-top:0.5rem;">
+            <span class="sidebar-icon">👩‍💻</span>
+            <span>Panel Admin</span>
+          </a>
         </div>
         <div class="sidebar-links">
           <a class="sidebar-link" onclick="App.navigate('privacidad')">🔒 Privacidad</a>
@@ -71,6 +81,7 @@
     </div>
   </div>
 
+  <script src="js/api-client.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/products.js"></script>
   <script src="js/routineEngine.js"></script>
@@ -78,6 +89,7 @@
   <script src="js/profile.js"></script>
   <script src="js/skin-diary.js"></script>
   <script src="js/consultas.js"></script>
+  <script src="js/admin-panel.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

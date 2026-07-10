@@ -75,29 +75,38 @@ var Profile = {
           <button class="btn btn-secondary btn-sm" onclick="Utils.confirmReset()">
             🔄 Reevaluar mi piel
           </button>
-          <button class="btn btn-routine-highlight btn-sm" onclick="Profile.showMyRoutine()">
-            📋 Mi Rutina Personalizada
-          </button>
         </div>
       </div>
     `;
   },
 
-  // Renderizar productos favoritos
+  // Renderizar productos favoritos (async — inyecta después del render)
   renderFavoriteProducts: function() {
     var favIds = Storage.getFavorites();
     if (favIds.length === 0) return '';
-    var products = favIds.map(function(id) { return Products.getById(id); }).filter(function(p) { return p; });
-    var cardsHtml = products.map(function(p) { return Products.renderCard(p); }).join('');
-    return `
-      <div class="fav-section" style="margin-top:1.5rem;">
-        <div class="section-header">
-          <h2>♥ Mis Favoritos</h2>
-          <p class="section-description">Productos que has marcado como favoritos</p>
-        </div>
-        <div class="fav-grid">${cardsHtml}</div>
-      </div>
-    `;
+
+    // Devuelve placeholder; carga productos de forma asíncrona
+    Promise.all(favIds.map(function(id) { return Products.getById(id); }))
+      .then(function(products) {
+        products = products.filter(function(p) { return p; });
+        var grid = document.getElementById('favoritesGrid');
+        if (!grid) return;
+        if (products.length === 0) {
+          grid.innerHTML = '<p style="color:var(--text-secondary);">No se pudieron cargar los favoritos.</p>';
+        } else {
+          grid.innerHTML = products.map(function(p) { return Products.renderCard(p); }).join('');
+        }
+      })
+      .catch(function() {
+        var grid = document.getElementById('favoritesGrid');
+        if (grid) grid.innerHTML = '';
+      });
+
+    return '<div class="fav-section" style="margin-top:1.5rem;">' +
+      '<div class="section-header"><h2>♥ Mis Favoritos</h2>' +
+      '<p class="section-description">Productos que has marcado como favoritos</p></div>' +
+      '<div id="favoritesGrid" class="fav-grid"><div class="loading"><div class="spinner"></div></div></div>' +
+      '</div>';
   },
 
   // Renderizar sección de configuración
@@ -209,6 +218,11 @@ var Profile = {
             </div>
             <div id="selectedAllergiesSummary" class="selected-allergies-summary"></div>
           </div>
+
+          <!-- Botón Mi Rutina Personalizada al final del formulario -->
+          <button class="btn btn-routine-highlight btn-full" onclick="Profile.showMyRoutine()" style="margin-top:0.5rem;">
+            📋 Mi Rutina Personalizada
+          </button>
         </div>
       </div>
     `;
@@ -292,7 +306,31 @@ var Profile = {
       updatedAt: new Date().toISOString()
     };
 
+    // Guardar localmente primero (inmediato)
     Storage.saveRoutineConfig(config);
+
+    // Luego guardar en backend (async)
+    var currentUser = Storage.getCurrentUser();
+    if (currentUser && currentUser.id) {
+      window.api.put('/profiles/' + currentUser.id, { routine_config: config })
+        .then(function(response) {
+          if (response.success) {
+            console.log('Configuración guardada en backend');
+          }
+        })
+        .catch(function(error) {
+          console.warn('No se pudo guardar config en backend:', error);
+        });
+    } else {
+      console.warn('No hay usuario autenticado, config solo local');
+    }
+
+    // Mostrar confirmación
+    Utils.showModal({
+      type: 'success',
+      title: 'Configuración guardada',
+      message: 'Tu configuración de rutina ha sido guardada correctamente.'
+    });
   },
 
   // Cargar alergias adicionales
@@ -375,7 +413,7 @@ var Profile = {
     }
   },
 
-  // Generar rutina
+  // Generar rutina usando el backend
   generateRoutine: function() {
     var skinProfile = Storage.getProfile();
     var config = Storage.getRoutineConfig();
@@ -389,63 +427,65 @@ var Profile = {
       return;
     }
 
-    // Determinar presupuesto basado en modo de optimización
+    // Mostrar loading
+    var app = document.getElementById('app');
+    var loadingHtml = '<div class="loading-container"><div class="spinner"></div><p>Generando tu rutina personalizada...</p></div>';
+    var existingLoading = document.querySelector('.loading-container');
+    if (!existingLoading) {
+      app.insertAdjacentHTML('beforeend', loadingHtml);
+    }
+
+    // Determinar presupuesto
     var budget = config?.budget || 'any';
     if (!config || !config.budget) {
-      // Si no hay presupuesto guardado, usar el modo de optimización
       var optimizationMode = config?.optimization || 'balanced';
       if (optimizationMode === 'cost') budget = 'low';
       else if (optimizationMode === 'quality') budget = 'high';
       else budget = 'medium';
     }
 
-    var brands = config?.brands || [];
+    var self = this;
 
-    // Fusionar alergias del perfil con alergias adicionales de configuración
-    var profileAllergies = skinProfile.allergies || [];
-    var additionalAllergies = config?.additionalAllergies || [];
+    // Ensure diagnosis is saved in DB before generating routine
+    // (sessionStorage profile may exist without a corresponding DB record)
+    var typeMap = { 'Normal':'normal','Seca':'dry','Seca Sensible':'dry','Seca Atópica':'atopic','Grasa':'oily','Grasa con Acné':'acne','Mixta':'mixed','Sensible':'sensitive','Sensible con Rosácea':'sensitive','Atópica':'atopic' };
+    var type_id = 'normal';
+    for (var k in typeMap) { if (skinProfile.typeName && skinProfile.typeName.indexOf(k) !== -1) { type_id = typeMap[k]; break; } }
+    var profilePayload = { type_name: skinProfile.typeName || 'Desconocido', type_id: type_id, concerns: skinProfile.concerns || [], allergies: skinProfile.allergies || [], description: skinProfile.description || '', answers: skinProfile.answers || {} };
+    window.api.post('/routines/generate', profilePayload)
+      .then(function(response) {
+        if (response.success && response.routine) {
+          var routine = response.routine;
 
-    // Crear mapping de alergias adicionales a etiquetas que entiende el motor
-    var allergyMapping = {
-      'parabenos': 'paraben-free',
-      'metilisotiazolinona': 'mi-free',
-      'aceites_esenciales': 'fragrance-free',
-      'alcohol': 'alcohol-free',
-      'sulfatos': 'sulfate-free',
-      'silicona': 'silicone-free'
-    };
+          // Guardar rutina localmente
+          Storage.saveGeneratedRoutine(routine);
 
-    var mergedAllergies = profileAllergies.slice(); // Copiar alergias del perfil
-    additionalAllergies.forEach(function(allergy) {
-      var mappedAllergy = allergyMapping[allergy];
-      if (mappedAllergy && mergedAllergies.indexOf(mappedAllergy) === -1) {
-        mergedAllergies.push(mappedAllergy);
-      }
-    });
+          // Eliminar loading
+          var loading = document.querySelector('.loading-container');
+          if (loading) loading.remove();
 
-    // Crear perfil temporal con alergias fusionadas
-    var tempProfile = Object.assign({}, skinProfile);
-    tempProfile.allergies = mergedAllergies;
+          // Mostrar rutina
+          self.renderGeneratedRoutine(routine);
 
-    // Generar rutina
-    var routine = RoutineEngine.generateRoutine(tempProfile, budget, brands);
+          // Scroll a la rutina
+          setTimeout(function() {
+            document.getElementById('generatedRoutine')?.scrollIntoView({ behavior: 'smooth' });
+          }, 300);
+        } else {
+          throw new Error('Respuesta inválida del servidor');
+        }
+      })
+      .catch(function(error) {
+        // Eliminar loading
+        var loading = document.querySelector('.loading-container');
+        if (loading) loading.remove();
 
-    // Validar rutina
-    var validation = RoutineEngine.validateRoutine(routine);
-    if (!validation.valid) {
-      console.warn('Advertencias de validación:', validation.errors);
-    }
-
-    // Guardar rutina
-    Storage.saveGeneratedRoutine(routine);
-
-    // Mostrar rutina
-    this.renderGeneratedRoutine(routine);
-
-    // Scroll a la rutina
-    setTimeout(function() {
-      document.getElementById('generatedRoutine')?.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
+        Utils.showModal({
+          type: 'error',
+          title: 'Error',
+          message: error.error || 'No se pudo generar la rutina. Intenta nuevamente.'
+        });
+      });
   },
 
   // Renderizar rutina generada

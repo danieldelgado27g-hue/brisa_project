@@ -1,71 +1,186 @@
-var productsData = [
-  { id: 1, name: "CeraVE Limpiador Hidratante", brand: "CeraVE", price: 12.99, category: "cleanser", type: ["normal", "dry", "sensitive"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.7, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='20' text-anchor='middle' dy='.3em'%3ECeraVE%3C/text%3E%3C/svg%3E", ingredients: "Agua purificada, Glicerina, Ceramidas 1,3,6-II, Ácido hialurónico, Niacinamida", description: "Limpiador suave que no altera la barrera cutánea. Apto para piel sensible.", howHelps: "Restaura la hidratación natural y fortalece la barrera de protección.", dues: [{ name: "Garnier Skin Active", price: 8.99, ingredients: "Agua, Glicerina, Extracto de manzana", howHelps: "Limpia suavemente sin resecar", category: "cleanser", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=garnier+skin+active" }] }, { name: "Nivea Gentle", price: 7.99, ingredients: "Agua, Aceite de almendras, Vitamina E", howHelps: "Hidrata mientras limpia", category: "cleanser", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=nivea+gentle" }] }], reviews: [{ author: "María G.", stars: 5, comment: "Excelente producto, mi piel ya no se siente tirante.", date: "2024-01-15" }, { author: "Laura M.", stars: 4, comment: "Muy bueno, aunque un poco caro para mi presupuesto.", date: "2024-01-10" }], storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=cerave+limpiador+hidratante" }, { store: "Sephora", url: "https://www.sephora.com/shop/brand/cerave" }, { store: "Farmacias", url: "https://www.farmaciasahumada.cl/" }] },
-  { id: 2, name: "La Roche-Posay Effaclar", brand: "La Roche-Posay", price: 18.99, category: "cleanser", type: ["oily", "mixed", "acne"], allergy: ["non-comedogenic"], eco: false, cruelty: true, rating: 4.5, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='18' text-anchor='middle' dy='.3em'%3EEffaclar%3C/text%3E%3C/svg%3E", ingredients: "Agua termal, Zinc PCA, Glicerina, Ácido salicílico 0.4%", description: "Gel limpiador purificante para piel grasa con tendencia acneica.", howHelps: "Controla el exceso de sebo y desobstruye los poros.", dues: [{ name: "Bioderma Sebium Gel", price: 10.99, ingredients: "Agua, Zinc, Glicerina", howHelps: "Purifica y controla brillo", category: "cleanser", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=bioderma+sebium" }] }, { name: "Neutrogena Deep Clean", price: 8.99, ingredients: "Agua, Ácido salicílico, mentol", howHelps: "Limpia profundamente los poros", category: "cleanser", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=neutrogena+deep+clean" }] }], reviews: [{ author: "Patricia H.", stars: 5, comment: "El único limpiador que funciona para mi piel grasa.", date: "2024-01-20" }, { author: "Daniela L.", stars: 4, comment: "Buen producto, pero un poco fuerte para uso diario.", date: "2024-01-18" }], storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=la+roche+posay+effaclar" }, { store: "Sephora", url: "https://www.sephora.com/shop/brand/la-roche-posay" }] },
-  { id: 3, name: "Neutrogena Hydro Boost", brand: "Neutrogena", price: 14.99, category: "moisturizer", type: ["normal", "oily", "mixed"], allergy: ["fragrance-free", "oil-free"], eco: false, cruelty: true, rating: 4.6, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='18' text-anchor='middle' dy='.3em'%3EHydroBoost%3C/text%3E%3C/svg%3E", ingredients: "Ácido hialurónico de peso molecular, Glicerina, Extracto de aloe", description: "Gel-crema hidratante ultraligero tipo agua.", howHelps: "Hidratación profunda sin dejar residuo graso.", dues: [{ name: "Simple Kind to Skin", price: 9.99, ingredients: "Glicerina, Vitamina E", howHelps: "Hidrata básica sin perfume", category: "moisturizer", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=simple+kind+to+skin" }] }, { name: "L'Oreal Hyaluronic Acid", price: 11.99, ingredients: "Ácido hialurónico 1%", howHelps: "Hidratación ligera con ácido hialurónico", category: "moisturizer", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=loreal+hyaluronic+acid" }] }], reviews: [{ author: "Valentina T.", stars: 5, comment: "Hidrata perfecto sin sensación pegajosa.", date: "2024-01-22" }, { author: "Camila S.", stars: 4, comment: "Muy bueno para piel mixta como la mía.", date: "2024-01-19" }], storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=neutrogena+hydro+boost" }, { store: "Sephora", url: "https://www.sephora.com/shop/brand/neutrogena" }] },
-  { id: 4, name: "CeraVe PM", brand: "CeraVE", price: 16.99, category: "moisturizer", type: ["dry", "sensitive", "normal"], allergy: ["fragrance-free", "non-comedogenic"], eco: false, cruelty: true, rating: 4.8, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='20' text-anchor='middle' dy='.3em'%3ECeraVe PM%3C/text%3E%3C/svg%3E", ingredients: "Ceramidas 1,3,6-II, Niacinamida 4%, Ácido hialurónico", description: "Hidratante nocturno ligero con ceramidas.", howHelps: "Repara la barrera mientras duermes. Apto para rosácea.", dues: [{ name: "Simple Hydrating Light", price: 10.99, ingredients: "Glicerina, Vitamina E", howHelps: "Hidratación nocturna ligera", category: "moisturizer" }, { name: "Nivea Soft", price: 8.99, ingredients: "Aceite de jojoba, lanolina", howHelps: "Suaviza e hidrata profundamente", category: "moisturizer" }], storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=cerave+pm" }, { store: "Sephora", url: "https://www.sephora.com/shop/brand/cerave" }] },
-  { id: 5, name: "EltaMD UV Clear", brand: "EltaMD", price: 28.99, category: "spf", type: ["oily", "mixed", "acne", "sensitive"], allergy: ["fragrance-free", "non-comedogenic"], eco: false, cruelty: true, rating: 4.9, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='18' text-anchor='middle' dy='.3em'%3EEltaMD%3C/text%3E%3C/svg%3E", ingredients: "Óxido de zinc 9%, Ácido hialurónico, Niacinamida 5%, Vitamins E", description: "Protector solar facial SPF 46 sin perfume.", howHelps: "Protege del sol y calma irritaciones. No tapona poros.", dues: [{ name: "La Roche-Posay Anthelios", price: 24.99, ingredients: "Avobenzone, Mexoryl SX", howHelps: "Protección UVA/UVB de amplio espectro", category: "spf" }, { name: "CeraVe Hydrating SPF 30", price: 15.99, ingredients: "Óxido de zinc, ceramidas", howHelps: "Protector solar hidratante", category: "spf" }], storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=eltamd+uv+clear" }, { store: "Dermstore", url: "https://www.dermstore.com/brand_elta-md_100.htm" }] },
-  { id: 6, name: "Paula's Choice BHA", brand: "Paula's Choice", price: 32.00, category: "treatment", type: ["oily", "mixed", "acne"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.7, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='16' text-anchor='middle' dy='.3em'%3EBHA 2%25%3C/text%3E%3C/svg%3E", ingredients: "Ácido salicílico 2%, Verde te, Extracto de té blanco", description: "Exfoliante líquido para poros e imperfecciones.", howHelps: "Desobstruye poros y reduce manchas post-acné.", dues: [{ name: "The Ordinary Salicylic 2%", price: 6.99, ingredients: "Ácido salicílico 2%, witch hazel", howHelps: "Exfoliante BHA económico para poros", category: "treatment" }], storeLinks: [{ store: "Paula's Choice", url: "https://www.paulaschoice.com/" }, { store: "Amazon", url: "https://www.amazon.com/s?k=paula+choice+bha" }] },
-  { id: 7, name: "The Ordinary Niacinamide", brand: "The Ordinary", price: 5.99, category: "treatment", type: ["oily", "mixed", "normal"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.4, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='18' text-anchor='middle' dy='.3em'%3ENiacinamide%3C/text%3E%3C/svg%3E", ingredients: "Niacinamida 10%, Zinc PCA 1%", description: "Sérum que controla la producción de sebo.", howHelps: "Reduce poros y controla sebo.", dues: [{ name: "Good Molecules Niacinamide", price: 6.99, ingredients: "Niacinamida 5%", howHelps: "Controla brillo y minimiza poros", category: "treatment" }], storeLinks: [{ store: "Deciem", url: "https://deciem.com/" }, { store: "Sephora", url: "https://www.sephora.com/shop/brand/the-ordinary" }] },
-  { id: 8, name: "Caudalie Vinoperfect", brand: "Caudalie", price: 45.00, category: "treatment", type: ["normal", "dry", "mixed"], allergy: [], eco: true, cruelty: false, rating: 4.6, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='16' text-anchor='middle' dy='.3em'%3EVinoperfect%3C/text%3E%3C/svg%3E", ingredients: "Extracto de vid, Ácido tartárico, Vitaminas C y E", description: "Sérum antimanchas de origen natural.", howHelps: "Unifica el tono y reduce manchas.", dues: [{ name: "The Ordinary Vitamin C", price: 8.99, ingredients: "Vitamina C 23%, HA", howHelps: "Ilumina y unifica el tono", category: "treatment" }, { name: "Good Molecules Discoloration", price: 12.99, ingredients: "Niacinamida, arbutina", howHelps: "Tratamiento corrección de manchas", category: "treatment" }], storeLinks: [{ store: "Sephora", url: "https://www.sephora.com/shop/brand/caudalie" }, { store: "Amazon", url: "https://www.amazon.com/s?k=caudalie+vinoperfect" }] },
-  { id: 9, name: "Retinol 0.5% - The Inkey List", brand: "The Inkey List", price: 8.99, category: "treatment", type: ["normal", "oily", "mixed"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.3, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='20' text-anchor='middle' dy='.3em'%3ERetinol%3C/text%3E%3C/svg%3E", ingredients: "Retinol 0.5%, Escualano, Manteca de karité", description: "Retinol suave para iniciar rutina antiedad.", howHelps: "Estimula colágeno y reduce líneas.", dues: [{ name: "Neutrogena Rapid Wrinkle", price: 12.99, ingredients: "Retinol, HA", howHelps: "Retinol de venta libre suave", category: "treatment" }, { name: "ROC Retinol Correxion", price: 16.99, ingredients: "Retinol puro", howHelps: "Corrige líneas de expresión", category: "treatment" }], storeLinks: [{ store: "Sephora", url: "https://www.sephora.com/shop/brand/the-inkey-list" }, { store: "Amazon", url: "https://www.amazon.com/s?k=the+inkey+list+retinol" }] },
-  { id: 10, name: "Aveeno Ultra-Calming", brand: "Aveeno", price: 11.99, category: "cleanser", type: ["sensitive", "dry"], allergy: ["fragrance-free", "hypoallergenic"], eco: false, cruelty: true, rating: 4.5, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='18' text-anchor='middle' dy='.3em'%3EAveeno%3C/text%3E%3C/svg%3E", ingredients: "Extracto de avena coloidal, Feverfew, Glicerina", description: "Limpiador calmante para piel reactiva.", howHelps: "Reduce rojeces y calma irritaciones.", dues: [{ name: "Simple Soothing", price: 8.99, ingredients: "Pro-vitamina B5, manzanilla", howHelps: "Calma la piel sensible", category: "cleanser" }, { name: "Cetaphil Gentle", price: 10.99, ingredients: "Glicerina, ACEITE DE coco", howHelps: "Limpia sin irritar", category: "cleanser" }], storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=aveeno+ultra+calming" }, { store: "Target", url: "https://www.target.com/s/aveeno" }] },
-  { id: 11, name: "Bioderma Atoderm", brand: "Bioderma", price: 14.99, category: "moisturizer", type: ["dry", "atopic"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.7, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='16' text-anchor='middle' dy='.3em'%3EAtoderm%3C/text%3E%3C/svg%3E", ingredients: "Estradiol, Manteca de karité, Glicerina, Ceramidas", description: "Crema intensiva para piel muy seca.", howHelps: "48h de hidratación y repara barrera.", dues: [{ name: "Vanicream Moisturizing", price: 9.99, ingredients: "Petrolatum, ceramidas", howHelps: "Hidratación para piel muy seca y sensible", category: "moisturizer" }], storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=bioderma+atoderm" }, { store: "Dermstore", url: "https://www.dermstore.com/" }] },
-  { id: 12, name: "Supergoop Unseen Sunscreen", brand: "Supergoop", price: 34.00, category: "spf", type: ["normal", "oily", "mixed", "sensitive"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.8, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='16' text-anchor='middle' dy='.3em'%3EUnseen SPF%3C/text%3E%3C/svg%3E", ingredients: "Arginina, Oligosacáridos, Frankincenso", description: "Protector invisible tipo segundo piel.", howHelps: "SPF 40 sin residuo blanco ni grasoso.", dues: [{ name: "La Roche-Posay Anthelios", price: 24.99, ingredients: "Avobenzone, Mexoryl", howHelps: "Protección UVA/UVD alta", category: "spf" }, { name: "Eucerin Oil Control", price: 18.99, ingredients: "Óxido de zinc, technologies oil control", howHelps: "Matificante y sin brillo", category: "spf" }], storeLinks: [{ store: "Sephora", url: "https://www.sephora.com/shop/brand/supergoop" }, { store: "Supergoop", url: "https://supergoop.com/" }] },
-
-  // PRODUCTOS ADICIONALES para más variedad
-  { id: 13, name: "Cetaphil Gentle Cleanser", brand: "Cetaphil", price: 13.99, category: "cleanser", type: ["normal", "dry", "sensitive"], allergy: ["fragrance-free", "hypoallergenic"], eco: false, cruelty: true, rating: 4.6, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='18' text-anchor='middle' dy='.3em'%3ECetaphil%3C/text%3E%3C/svg%3E", ingredients: "Agua, Glicerina, Alcohol cetílico", description: "Limpiador clínico suave para todo tipo de piel.", howHelps: "Limpia sin irritar ni resecar la piel.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=cetaphil+gentle" }] },
-  { id: 14, name: "Vanicream Moisturizer", brand: "Vanicream", price: 12.99, category: "moisturizer", type: ["dry", "sensitive", "atopic"], allergy: ["fragrance-free", "hypoallergenic"], eco: false, cruelty: true, rating: 4.5, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='16' text-anchor='middle' dy='.3em'%3EVanicream%3C/text%3E%3C/svg%3E", ingredients: "Petrolatum, Ceramidas, Glicerina", description: "Crema hidratante para piel sensible y con eczema.", howHelps: "Hidrata intensiva sin irritar.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=vanicream+moisturizer" }] },
-  { id: 15, name: "La Roche-Posay Anthelios", brand: "La Roche-Posay", price: 26.99, category: "spf", type: ["normal", "oily", "mixed", "sensitive"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.7, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='16' text-anchor='middle' dy='.3em'%3EAnthelios%3C/text%3E%3C/svg%3E", ingredients: "Avobenzone, Mexoryl SX, XL", description: "Protector solar SPF 50+ con tecnología Cell-Ox Shield.", howHelps: "Protección UVA/UVB de amplio espectro.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=la+roche+posay+anthelios" }] },
-  { id: 16, name: "The Ordinary Hyaluronic Acid", brand: "The Ordinary", price: 6.99, category: "treatment", type: ["normal", "dry", "oily", "mixed", "sensitive"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.3, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='14' text-anchor='middle' dy='.3em'%3EHA%3C/text%3E%3C/svg%3E", ingredients: "Ácido hialurónico 2%, Vitamina B5", description: "Sérum hidratante con ácido hialurónico multi-peso.", howHelps: "Hidratación profunda para todo tipo de piel.", storeLinks: [{ store: "Deciem", url: "https://deciem.com/" }, { store: "Sephora", url: "https://www.sephora.com/shop/brand/the-ordinary" }] },
-  { id: 17, name: "Simple Kind to Skin Moisturizer", brand: "Simple", price: 9.99, category: "moisturizer", type: ["normal", "sensitive"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.4, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='14' text-anchor='middle' dy='.3em'%3ESimple%3C/text%3E%3C/svg%3E", ingredients: "Glicerina, Vitamina E, Pro-vitamina B5", description: "Hidratante básico sin perfume.", howHelps: "Hidratación simple y efectiva.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=simple+kind+to+skin+moisturizer" }] },
-  { id: 18, name: "CeraVe Hydrating Sunscreen", brand: "CeraVE", price: 15.99, category: "spf", type: ["normal", "dry", "sensitive"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.6, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='16' text-anchor='middle' dy='.3em'%3ECeraVE SPF%3C/text%3E%3C/svg%3E", ingredients: "Óxido de zinc, Dióxido de titanio, Ceramidas", description: "Protector solar hidratante SPF 30 mineral.", howHelps: "Protección solar con ingredientes hidratantes.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=cerave+sunscreen" }] },
-  { id: 19, name: "Good Molecules Discoloration Correcting", brand: "Good Molecules", price: 12.99, category: "treatment", type: ["normal", "dry", "mixed"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.5, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='14' text-anchor='middle' dy='.3em'%3EGM%3C/text%3E%3C/svg%3E", ingredients: "Niacinamida, Arbutina, Tranexámico", description: "Sérum corrector de manchas e hiperpigmentación.", howHelps: "Unifica el tono y reduce manchas oscuras.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=good+molecules+discoloration" }] },
-  { id: 20, name: "Neutrogena Rapid Wrinkle Repair", brand: "Neutrogena", price: 19.99, category: "treatment", type: ["normal", "dry", "mixed"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.4, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%230ea5e9' font-size='14' text-anchor='middle' dy='.3em'%3ENeutrogena%3C/text%3E%3C/svg%3E", ingredients: "Retinol SA, Glucosa Compleja, Ácido hialurónico", description: "Crema reparadora de arrugas con retinol acelerado.", howHelps: "Reduce líneas finas y arrugas.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=neutrogena+rapid+wrinkle" }] },
-  { id: 21, name: "COSRX Low pH Good Morning Gel Cleanser", brand: "COSRX", price: 14.99, category: "cleanser", type: ["normal", "oily", "mixed", "sensitive"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.6, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e8f5e9' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%2343a047' font-size='16' text-anchor='middle' dy='.3em'%3ECOSRX%3C/text%3E%3C/svg%3E", ingredients: "Agua, Glicerina, Ácido salicílico 0.5%, Extracto de té verde, Aceite de árbol de té", description: "Limpiador facial en gel con pH balanceado que limpia suavemente sin irritar.", howHelps: "Equilibra el pH de la piel mientras limpia y previene imperfecciones.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=cosrx+low+ph+good+morning" }] },
-  { id: 22, name: "Beauty of Joseon Dynasty Cream", brand: "Beauty of Joseon", price: 22.99, category: "moisturizer", type: ["dry", "normal", "sensitive"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.8, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23fce4ec' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%23e91e63' font-size='14' text-anchor='middle' dy='.3em'%3EBoJ%3C/text%3E%3C/svg%3E", ingredients: "Ginseng, Ácido hialurónico, Escualano, Manteca de karité, Aceite de argán", description: "Crema hidratante coreana con ginseng que ilumina y nutre profundamente.", howHelps: "Hidrata en profundidad, mejora la elasticidad y aporta luminosidad.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=beauty+of+joseon+dynasty+cream" }] },
-  { id: 23, name: "Some By Mi AHA BHA PHA 30 Days Miracle Toner", brand: "Some By Mi", price: 18.99, category: "treatment", type: ["oily", "mixed", "acne"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.5, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f7fa' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%2300acc1' font-size='14' text-anchor='middle' dy='.3em'%3ESomeByMi%3C/text%3E%3C/svg%3E", ingredients: "AHA, BHA, PHA, Extracto de té verde, Niacinamida, Ácido hialurónico", description: "Tónico exfoliante que combina 3 tipos de ácidos para renovar la piel.", howHelps: "Exfolia suavemente, reduce imperfecciones y mejora la textura de la piel.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=some+by+mi+aha+bha+pha" }] },
-  { id: 24, name: "Laneige Water Sleeping Mask", brand: "Laneige", price: 27.99, category: "moisturizer", type: ["normal", "dry", "oily", "mixed"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.7, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e3f2fd' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%231979d2' font-size='14' text-anchor='middle' dy='.3em'%3ELaneige%3C/text%3E%3C/svg%3E", ingredients: "Agua de centella asiática, Escualano, Ceramidas, Probióticos, Ácido hialurónico", description: "Mascarilla nocturna hidratante que sella la humedad mientras duermes.", howHelps: "Hidratación intensa durante la noche, piel más suave y radiante al despertar.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=laneige+water+sleeping+mask" }] },
-  { id: 25, name: "Innisfree Green Tea Hyaluronic Acid Serum", brand: "Innisfree", price: 21.99, category: "treatment", type: ["normal", "dry", "sensitive"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.6, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e8f5e9' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%232e7d32' font-size='16' text-anchor='middle' dy='.3em'%3EInnisfree%3C/text%3E%3C/svg%3E", ingredients: "Extracto de té verde de Jeju, Ácido hialurónico, Glicerina, Betaina", description: "Sérum hidratante con ácido hialurónico y extracto de té verde.", howHelps: "Hidratación profunda de larga duración con antioxidantes naturales.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=innisfree+green+tea+serum" }] },
-  { id: 26, name: "Missha Time Revolution The First Essence", brand: "Missha", price: 31.99, category: "treatment", type: ["normal", "dry", "mixed", "sensitive"], allergy: ["fragrance-free"], eco: false, cruelty: true, rating: 4.7, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23fff3e0' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%23e65100' font-size='14' text-anchor='middle' dy='.3em'%3EMissha%3C/text%3E%3C/svg%3E", ingredients: "Fermento de levadura 90%, Niacinamida, Extracto de loto, Adenósina", description: "Esencia fermentada coreana que prepara la piel para absorber mejor los productos.", howHelps: "Mejora la textura, ilumina y potencia la absorción de los siguientes pasos.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=missha+time+revolution+essence" }] },
-  { id: 27, name: "Anua Heartleaf 77% Soothing Toner", brand: "Anua", price: 19.99, category: "treatment", type: ["sensitive", "oily", "acne"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.5, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23f1f8e9' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%2355892f' font-size='20' text-anchor='middle' dy='.3em'%3EAnua%3C/text%3E%3C/svg%3E", ingredients: "Extracto de hoja de corazón 77%, Ácido hialurónico, Pantenol, Aloe vera", description: "Tónico calmante con alto contenido de extracto de heartleaf.", howHelps: "Calma la irritación, reduce rojeces y controla el exceso de sebo.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=anua+heartleaf+toner" }] },
-  { id: 28, name: "Round Lab Birch Juice Moisturizing Sunscreen SPF50+", brand: "Round Lab", price: 24.99, category: "spf", type: ["normal", "dry", "sensitive"], allergy: ["fragrance-free"], eco: true, cruelty: true, rating: 4.8, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0f2fe' width='300' height='300'/%3E%3Ctext x='150' y='150' fill='%23027fbd' font-size='16' text-anchor='middle' dy='.3em'%3ERoundLab%3C/text%3E%3C/svg%3E", ingredients: "Jugo de savia de abedul 30%, Niacinamida, Ácido hialurónico, Centella asiática", description: "Protector solar mineral coreano con savia de abedul para hidratación extra.", howHelps: "Protege de rayos UVA/UVB mientras hidrata y calma la piel sensible.", storeLinks: [{ store: "Amazon", url: "https://www.amazon.com/s?k=round+lab+birch+juice+sunscreen" }] }
-];
-
 var Products = {
-  getAll: function() { return productsData; },
-  getById: function(id) { 
-    for (var i = 0; i < productsData.length; i++) { 
-      if (productsData[i].id === parseInt(id)) { return productsData[i]; } 
+  // Cache de productos para evitar requests repetidas
+  _cache: null,
+  _cacheTime: null,
+  _cacheDuration: 5 * 60 * 1000, // 5 minutos
+
+  /**
+   * Obtiene todos los productos (con filtros opcionales)
+   * @param {object} params - Parámetros de filtro: search, type, category, budget, eco, cruelty, sortBy, order, page, limit
+   * @returns {Promise} Array de productos
+   */
+  getAll: function(params) {
+    var self = this;
+    params = params || {};
+
+    // Verificar cache
+    if (this._cache && this._cacheTime && (Date.now() - this._cacheTime) < this._cacheDuration && Object.keys(params).length === 0) {
+      return Promise.resolve(this._cache);
     }
-    return null;
+
+    // Construir query params para el backend
+    var queryParams = {};
+    if (params.search) queryParams.search = params.search;
+    if (params.type) queryParams.type = params.type;
+    if (params.category) queryParams.category = params.category;
+    if (params.budget) queryParams.budget = params.budget;
+    if (params.eco === true || params.eco === 'true') queryParams.eco = 'true';
+    if (params.cruelty === true || params.cruelty === 'true') queryParams.cruelty = 'true';
+    if (params.sortBy) queryParams.sortBy = params.sortBy;
+    if (params.order) queryParams.order = params.order;
+    if (params.page) queryParams.page = params.page;
+    if (params.limit) queryParams.limit = params.limit;
+
+    return window.api.get('/products', queryParams)
+      .then(function(response) {
+        var products = response.products || [];
+
+        // Actualizar cache solo si no hay filtros
+        if (Object.keys(params).length === 0) {
+          self._cache = products;
+          self._cacheTime = Date.now();
+        }
+
+        return products;
+      })
+      .catch(function(error) {
+        console.error('Error fetching products:', error);
+        return [];
+      });
   },
+
+  /**
+   * Obtiene un producto por ID
+   * @param {number} id - ID del producto
+   * @returns {Promise} Producto encontrado o null
+   */
+  getById: function(id) {
+    return window.api.get('/products/' + id)
+      .then(function(response) {
+        return response.product || null;
+      })
+      .catch(function(error) {
+        console.error('Error fetching product:', error);
+        return null;
+      });
+  },
+
+  /**
+   * Filtra productos localmente (para fallback o filtros complejos)
+   * @param {object} params - Parámetros de filtro
+   * @returns {Promise} Productos filtrados
+   */
   filter: function(params) {
-    var result = productsData.slice();
-    if (params.search) {
-      var search = params.search.toLowerCase();
-      result = result.filter(function(p) { return p.name.toLowerCase().indexOf(search) !== -1 || p.brand.toLowerCase().indexOf(search) !== -1; });
-    }
-    if (params.type) result = result.filter(function(p) { return p.type.indexOf(params.type) !== -1; });
-    if (params.allergy) result = result.filter(function(p) { return p.allergy.indexOf(params.allergy) !== -1; });
-    if (params.eco === 'true') result = result.filter(function(p) { return p.eco; });
-    if (params.cruelty === 'true') result = result.filter(function(p) { return p.cruelty; });
-    return result;
+    // Usar la API del backend que ya tiene filtros implementados
+    return this.getAll(params);
   },
+
+  /**
+   * Obtiene productos por tipo de piel
+   * @param {string} skinType - Tipo de piel (ej: "Seca Sensible", "Grasa con Acné")
+   * @returns {Promise} Array de productos compatibles
+   */
   getBySkinType: function(skinType) {
+    // Mapeo de nombres de piel a IDs del backend
+    var typeMap = {
+      'Normal': 'normal',
+      'Seca': 'dry',
+      'Grasa': 'oily',
+      'Mixta': 'mixed',
+      'Sensible': 'sensitive',
+      'Acné': 'acne',
+      'Atópica': 'atopic',
+      'Rosácea': 'sensitive'
+    };
+
+    // Determinar el tipo basado en el nombre
     var types = [];
-    if (skinType.indexOf("Normal") > -1) types.push("normal");
-    if (skinType.indexOf("Seca") > -1) types.push("dry");
-    if (skinType.indexOf("Grasa") > -1) types.push("oily");
-    if (skinType.indexOf("Mixta") > -1) types.push("mixed");
-    if (skinType.indexOf("Sensible") > -1) types.push("sensitive");
-    if (skinType.indexOf("Acné") > -1) types.push("acne");
-    if (skinType.indexOf("Atópica") > -1) types.push("atopic");
-    if (skinType.indexOf("Rosácea") > -1) types.push("sensitive");
-    return productsData.filter(function(p) { 
-      for (var i = 0; i < p.type.length; i++) { if (types.indexOf(p.type[i]) !== -1) return true; }
-      return false;
-    });
+    for (var key in typeMap) {
+      if (skinType.indexOf(key) !== -1) {
+        types.push(typeMap[key]);
+      }
+    }
+
+    // Si no hay match, usar empty para que no filtre
+    if (types.length === 0) {
+      return this.getAll();
+    }
+
+    // Usar el primer tipo que match (el backend solo soporta un type a la vez)
+    return this.getAll({ type: types[0] });
   },
+
+  /**
+   * Obtiene reseñas de un producto
+   * @param {number} productId - ID del producto
+   * @returns {Promise} Array de reseñas
+   */
+  getReviews: function(productId) {
+    return window.api.get('/products/' + productId + '/reviews')
+      .then(function(response) {
+        return response.reviews || [];
+      })
+      .catch(function(error) {
+        console.error('Error fetching reviews:', error);
+        return [];
+      });
+  },
+
+  /**
+   * Agrega una reseña a un producto
+   * @param {number} productId - ID del producto
+   * @param {object} review - Datos de la reseña {stars, comment}
+   * @returns {Promise} Reseña creada
+   */
+  addReview: function(productId, review) {
+    return window.api.post('/products/' + productId + '/reviews', review)
+      .then(function(response) {
+        return response.review || null;
+      })
+      .catch(function(error) {
+        console.error('Error adding review:', error);
+        throw error;
+      });
+  },
+
+  /**
+   * Actualiza una reseña existente
+   * @param {number} productId - ID del producto
+   * @param {object} review - Datos actualizados {stars, comment}
+   * @returns {Promise} Reseña actualizada
+   */
+  updateReview: function(productId, review) {
+    return window.api.put('/products/' + productId + '/reviews', review)
+      .then(function(response) {
+        return response.review || null;
+      })
+      .catch(function(error) {
+        console.error('Error updating review:', error);
+        throw error;
+      });
+  },
+
+  /**
+   * Elimina una reseña
+   * @param {number} productId - ID del producto
+   * @returns {Promise} Success response
+   */
+  deleteReview: function(productId) {
+    return window.api.delete('/products/' + productId + '/reviews')
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.error('Error deleting review:', error);
+        throw error;
+      });
+  },
+
+  /**
+   * Renderiza una tarjeta de producto HTML
+   * @param {object} product - Objeto producto
+   * @returns {string} HTML de la tarjeta
+   */
   renderCard: function(product) {
     var eur = "S/.";
     var badges = '';
@@ -75,16 +190,73 @@ var Products = {
     if (product.eco) labels = labels + '<span class="badge-label">Ecológico</span> ';
     if (product.cruelty) labels = labels + '<span class="badge-label">Sin crueldad animal</span>';
     var isFav = Storage.isFavorite(product.id);
+    var imgUrl = Products.getImageUrl(product.name, product.image_url || product.image);
     var html = '<div class="product-card" data-pid="' + product.id + '">';
     html = html + '<div style="position:relative;">';
-    html = html + '<img src="' + product.image + '" alt="' + product.name + '">';
+    html = html + '<img src="' + imgUrl + '" alt="' + product.name + '">';
     html = html + '<button class="product-card-fav ' + (isFav ? 'active' : '') + '" onclick="event.stopPropagation();App.toggleFav(' + product.id + ',this)">' + (isFav ? '♥' : '♡') + '</button>';
     html = html + '</div>';
     html = html + '<div class="product-card-info">';
     html = html + '<div class="product-card-name">' + product.name + '</div>';
-    html = html + '<div class="product-card-price">' + eur + product.price.toFixed(2) + '</div>';
+    html = html + '<div class="product-card-price">' + eur + (product.price != null ? parseFloat(product.price).toFixed(2) : '—') + '</div>';
     html = html + '<div class="product-card-badges">' + badges + '</div>';
     html = html + '</div></div>';
     return html;
+  },
+
+  /**
+   * Limpia el cache de productos
+   */
+  clearCache: function() {
+    this._cache = null;
+    this._cacheTime = null;
+  },
+
+  /**
+   * Obtiene la URL de imagen correcta para un producto según su nombre
+   */
+  getImageUrl: function(productName, fallback) {
+    var map = {
+      'CeraVE Limpiador Hidratante': 'images/products/cerave-limpiador.png',
+      'La Roche-Posay Effaclar': 'images/products/laroche-effaclar.jpg',
+      'Neutrogena Hydro Boost': 'images/products/neutrogena-hydroboost.svg',
+      'CeraVe PM': 'images/products/cerave-pm.jpg',
+      'EltaMD UV Clear': 'images/products/eltamd-uvclear.jpg',
+      'Paula\'s Choice BHA': 'images/products/paulaschoice-bha.webp',
+      'The Ordinary Niacinamide': 'images/products/ordinary-niacinamide.webp',
+      'Caudalie Vinoperfect': 'images/products/caudalie-vinoperfect.svg',
+      'Retinol 0.5% - The Inkey List': 'images/products/retinol-inkeylist.jpg',
+      'Aveeno Ultra-Calming': 'images/products/aveeno-ultracalming.jpg',
+      'Bioderma Atoderm': 'images/products/bioderma-atoderm.jpg',
+      'Supergoop Unseen Sunscreen': 'images/products/supergoop-unseen.jpg',
+      'Cetaphil Gentle Cleanser': 'images/products/cetaphil-gentle.svg',
+      'Vanicream Moisturizer': 'images/products/vanicream-moisturizer.jpg',
+      'La Roche-Posay Anthelios': 'images/products/laroche-anthelios.jpg',
+      'The Ordinary Hyaluronic Acid': 'images/products/ordinary-hyaluronic.png',
+      'Simple Kind to Skin Moisturizer': 'images/products/simple-moisturizer.jpg',
+      'CeraVe Hydrating Sunscreen': 'images/products/cerave-sunscreen.svg',
+      'Good Molecules Discoloration Correcting': 'images/products/goodmolecules-discoloration.svg',
+      'Neutrogena Rapid Wrinkle Repair': 'images/products/neutrogena-rapidwrinkle.svg',
+      'Beauty of Joseon Dynasty Cream': 'images/products/beautyofjoseon-dynasty.svg',
+      'Some By Mi AHA BHA PHA 30 Days Miracle Toner': 'images/products/somebymi-aha.svg',
+      'Laneige Water Sleeping Mask': 'images/products/laneige-sleeping.svg',
+      'Innisfree Green Tea Hyaluronic Acid Serum': 'images/products/innisfree-greentea.svg',
+      'Missha Time Revolution The First Essence': 'images/products/missha-time.svg',
+      'Anua Heartleaf 77% Soothing Toner': 'images/products/anua-heartleaf.svg',
+      'Round Lab Birch Juice Moisturizing Sunscreen SPF50+': 'images/products/roundlab-birch.webp'
+    };
+    if (!productName) return fallback || 'images/products/placeholder.svg';
+    var pn = productName.toLowerCase();
+    for (var key in map) {
+      var k = key.toLowerCase();
+      if (pn.indexOf(k) !== -1 || k.indexOf(pn) !== -1) return map[key];
+      var keyWords = k.split(' ');
+      var matchCount = 0;
+      for (var w = 0; w < keyWords.length; w++) {
+        if (keyWords[w].length > 2 && pn.indexOf(keyWords[w]) !== -1) matchCount++;
+      }
+      if (matchCount >= 2) return map[key];
+    }
+    return fallback || 'images/products/placeholder.svg';
   }
 };
